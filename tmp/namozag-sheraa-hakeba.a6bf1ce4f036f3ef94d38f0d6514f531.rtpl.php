@@ -1,0 +1,171 @@
+<?php if(!class_exists('raintpl')){exit;}?><?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("header") . ( substr("header",-1,1) != "/" ? "/" : "" ) . basename("header") );?>
+
+
+
+        
+        
+        <div id="main-content" class="containersidebar-right">
+<div class="content">
+    
+    
+                            
+            <article class="post-614 page type-page status-publish hentry post-listing post">
+                    		<div class="single-post-thumb">
+					</div>
+		
+	<!------------------- start form for form ----------------->
+        <div class="post-inner" style="background-color:#FDF8E8;">
+                    <h1 class="name post-title endivy-title" itemprop="itemReviewed" itemscope itemtype="http://schema.org/Thing">
+                        <span itemprop="name">شراء حقيبة تدريبية</span>
+                    </h1>
+                        
+                            <div >
+                                <form class="basic-grey" action="#" method="post">
+                                    <div>
+                                            <h3>
+                                            بيانات البرنامج
+                                            </h3>
+                                    </div>
+
+                                    <div><br/>
+                                        <div>الدورة:</div>
+                                        <div>
+                                            <select name="data[course]" required="required">
+                                                
+                                                    <option value="">الدورة الاولي </option>
+                                                    <option value="">الدورة الثانية </option>
+                                                    <option value="">الدورة الثالثة </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                              
+
+                                    <div>
+                                        <h3 class="divtitle">بيانات العميل</h3>
+
+                                    </div>
+
+
+                                    <div>
+                                        <div>الاسم:</div>
+                                        <div><input name="data[name]" required="required" type="text" i class="txtbox"/></div>
+                                    </div>
+                                    <div>
+                                        <div>الوظيفة:</div>
+                                        <div><input name="data[job]" type="text" required="required" class="txtbox"></div>
+                                    </div>
+                                    <div>
+                                        <div>الشركة:</div>
+                                        <div><input name="data[company]" type="text"  class="txtbox"></div>
+                                    </div>
+                                    <div>
+                                        <div>العنوان-ص.ب:</div>
+                                        <div><input name="data[adress]" type="text" required="required" class="txtbox"></div>
+                                    </div>
+                                    <div>
+                                        <div>الرمز البريدي:</div>
+                                        <div><input name="data[postal]" type="text" required="required" class="txtbox"></div>
+                                    </div>
+                                    <div>
+                                        <span>الدولة:</span>
+                                        <div>
+                                            <input  type="text" required="required" name="data[country]" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div> هاتف:</div>
+                                        <div><input name="data[phone]" type="text"  class="txtbox"/></div>
+                                    </div>
+
+                                    <div>
+                                        <div> الموبايل:</div>
+                                        <div><input name="data[mobile]" type="text"  class="txtbox"></div>
+                                    </div>
+                                    <div>
+                                        <div> فاكس:</div>
+                                        <div><input name="data[fax]" type="text" class="txtbox"></div>
+                                    </div>
+
+                                    <div>
+                                        <div> البريد الالكتروني:</div>
+                                        <div>
+                                            <input name="data[email]" type="email"  class="txtbox">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div>ملاحظات:</div>
+                                        <div><textarea name="data[notes]" rows="2" cols="20"  class="txtbox" style="height:60px;"></textarea></div>
+                                    </div>
+                                    <div>
+                                        <div> <input type="submit" name="ctl00$ContentPlaceHolder1$btnsave" value="تقديم طلب شراء حقيبة تدريبية " onclick="return Validate();" id="ctl00_ContentPlaceHolder1_btnsave" class="btn"></div>
+                                    </div>
+                                </form>
+                            </div> 
+                    <!----------------- end of form         ----------->
+                        
+                        
+                    <span style="display:none" class="updated">2015-01-21</span>
+                                            <div style="display:none" class="vcard author" itemprop="author" itemscope itemtype="http://schema.org/Person"><sdivong class="fn" itemprop="name"><a href="#?rel=author">+amin</a></sdivong></div>
+                    
+                </div><!-- .post-inner -->
+            </article><!-- .post-listing -->
+        
+    
+    		<div id="comments">
+
+		
+
+		
+</div><!-- #comments -->
+</div><!-- .content -->
+
+<aside id="sidebar">
+<div id="nav_menu-5" class="widget widget_nav_menu">
+    <div class="widget-top">
+        <h4>الحقائب التدريبية</h4>
+        <div class="stripe-line">
+            
+        </div>
+            
+    </div>
+	<div class="widget-container">
+            <div class="menu">
+                <ul id="menu" class="menu">
+                    <li id="menu-item-696" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-696"><a href="gadwal-elhkaeb.php">الحقائب التدريبية</a></li>
+                    <li id="menu-item-698" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-614 current_page_item menu-item-698"><a href="#">نموذج شراء حقيبة تدريبية</a></li>
+                    <li id="menu-item-697" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-697"><a href="#">حمل دليل الحقائب التدريبية</a></li>
+                    <li id="menu-item-700" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-700"><a href="#">طرق السداد</a></li>
+                </ul>
+            </div>
+        </div>
+</div><!-- .widget /-->       
+
+                <div class="full-width"><img src="./template/wp-content/uploads/2015/01/gif1.gif"/></div>
+                <div class="full-width"><a href="#" target="_blank"><img src="./template/wp-content/uploads/2015/01/4331.jpg"/></a></div>
+                <div class="full-width"><a href="#" target="_blank"><img src="./template/wp-content/uploads/2015/01/gif-de-bono.gif"/></a></div>
+                <div class="full-width"><a href="#" target="_blank"><img src="./template/wp-content/uploads/2015/01/43.jpg"/></a></div>
+
+        </aside><div class="clear"></div>
+<nav  class="container-last-menu">
+    <div class="last-wrap">
+        <div class="main-menu"><ul id="menu-%d9%82%d8%a7%d8%a6%d9%85%d8%a9-%d8%a7%d8%b9%d9%84%d9%89-%d8%a7%d9%84%d9%81%d9%88%d8%aa%d8%b1" class="menu"><li id="menu-item-464" class="menu-item  menu-item-type-custom  menu-item-object-custom"><a href="#">عنوان رئيسي</a></li>
+<li id="menu-item-465" class="menu-item  menu-item-type-custom  menu-item-object-custom"><a href="#">عنوان رئيسي</a></li>
+<li id="menu-item-466" class="menu-item  menu-item-type-custom  menu-item-object-custom"><a href="#">عنوان رئيسي</a></li>
+<li id="menu-item-467" class="menu-item  menu-item-type-custom  menu-item-object-custom"><a href="#">عنوان رئيسي</a></li>
+<li id="menu-item-468" class="menu-item  menu-item-type-custom  menu-item-object-custom"><a href="#">عنوان رئيسي</a></li>
+<li id="menu-item-469" class="menu-item  menu-item-type-custom  menu-item-object-custom"><a href="#">عنوان رئيسي</a></li>
+</ul></div>    </div>
+</nav><!-- .main-nav /-->
+<div class="clear"></div>
+</div><!-- .container /-->
+
+<footer id="theme-footer">
+	<div id="footer-widget-area" class="wide-narrow-2c">
+
+	
+	
+
+<?php $tpl = new RainTPL;$tpl_dir_temp = self::$tpl_dir;$tpl->assign( $this->var );$tpl->draw( dirname("footer") . ( substr("footer",-1,1) != "/" ? "/" : "" ) . basename("footer") );?>

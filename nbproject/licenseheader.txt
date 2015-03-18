@@ -1,0 +1,15 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+ * Created by PhpStorm.
+ * User 	: Mohamed Hafez
+ * Email	: Mohamed.hafezqo@gmail.com
+ * Mobile	: 01144688896
+ * Date:
+ * Time: 5:20 PM
+
+
+<#if licenseLast??>
+${licenseLast}
+</#if>
+
