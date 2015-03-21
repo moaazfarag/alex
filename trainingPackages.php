@@ -10,4 +10,4 @@ require_once('globals.php');
 
 //is_admin();
 //System::get('tpl')->assign('username',$_SESSION['username']);
-System::Get('tpl')->draw('gadwal-hkaeb');
+System::Get('tpl')->draw('trainingPackages');
