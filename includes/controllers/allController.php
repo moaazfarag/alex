@@ -21,7 +21,7 @@ class allController
    private $allModel; //requestvisit model object
    //private $usersModel; //usere model object
    
-   public function __construct(alltModel $allmodel) 
+   public function __construct(allModel $allmodel) 
            
    {
        $this->allModel     =    $allmodel;
@@ -31,6 +31,8 @@ class allController
    
    public function getTrainingPackages()
    {
+       echo "hi ";
+       die();
 //       $table = 'visitrequest';
 //       $count= $this->visitRequestModel->getCount($table);
 //       $rows =$count['COUNT(*)'];

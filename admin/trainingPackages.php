@@ -12,20 +12,20 @@
  * @author Mohamed Hafez
  */
 
-require_once 'globals.php';
-require_once (CONTROLLERS.'usersController.php');
-is_admin();
+require_once '../globals.php';
+require_once (CONTROLLERS.'allController.php');
+//is_admin();
 
 /*
  * objects from Visit Request Model and users Model
  * 
  */
-$usersmodel     = new usersModel();
+//$usersmodel     = new usersModel();
 /*
  * controller instance
  */
-$controller     = new usersController ($usersmodel);
+$controller     = new allModel ($allmodel);
 
-$controller->getAllUsers();
+$controller->getTrainingPackages();
 
 

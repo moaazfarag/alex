@@ -19,7 +19,7 @@
                     <span class="kufi font10"> الحقائب التدريبيه </span>
                 </a>
                 <ul class="sub kufi font10" >
-                    <li><a style="margin-right : 15px;"  href="#">جميع الحقائب التدريبية</a></li>
+                    <li><a style="margin-right : 15px;"  href="trainingPackages.php">جميع الحقائب التدريبية</a></li>
                     <li><a style="margin-right : 15px;" href="#">اضف حقيبة تدريبية</a></li>
                 </ul>
             </li>
