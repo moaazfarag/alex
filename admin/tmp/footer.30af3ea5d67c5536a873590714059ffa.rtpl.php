@@ -1,7 +1,9 @@
 <?php if(!class_exists('raintpl')){exit;}?><!--footer start-->
 <footer class="site-footer">
-    <div class="text-center">
-        2013 &copy; FlatLab by VectorLab.
+    <div class="text-center kufi font10" >
+        الموقع من تصميم وبرمجة و تطوير مجموعة ثري ايه الدولية
+        
+        
         <a href="#" class="go-top">
             <i class="icon-angle-up"></i>
         </a>
