@@ -20,11 +20,11 @@ require_once (CONTROLLERS.'allController.php');
  * objects from Visit Request Model and users Model
  * 
  */
-//$usersmodel     = new usersModel();
+$allmod     = new allModel();
 /*
  * controller instance
  */
-$controller     = new allModel ($allmodel);
+$controller     = new allController ($allmod);
 
 $controller->getTrainingPackages();
 
