@@ -60,9 +60,9 @@
                                   <?php $counter1=-1; if( isset($trainingpackages) && is_array($trainingpackages) && sizeof($trainingpackages) ) foreach( $trainingpackages as $key1 => $value1 ){ $counter1++; ?>
                               <tr>
 
-                                  <td><input type="checkbox" class="checkbox1" name="check_list[]" value="<?php echo $value1["user_id"];?>" ></td>
+                                  <td><input type="checkbox" class="checkbox1" name="check_list[]" ></td>
                                   <td><?php echo $value1["name"];?></td>
-                                  <td><a href="updateUser.php?id=<?php echo $value1["user_id"];?>" style="color: blue; "><?php echo $value1["name"];?></a></td>
+                                  <td><a href="#" style="color: blue; "><?php echo $value1["name"];?></a></td>
                                   <td><?php echo $value1["mini_description"];?></td>
                                   <td><?php echo $value1["date"];?> </td>
                                   <td><?php echo $value1["owner"];?> </td>
