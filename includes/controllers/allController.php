@@ -12,25 +12,24 @@
  * @author Mohamed Hafez
  */
 
-require_once (MODELS.'visitRequestModel.php');
-require_once (MODELS.'usersModel.php');
-require_once (LIBS.'paginator.class.php');
+require_once (MODELS.'allModel.php');
+//require_once (MODELS.'usersModel.php');
 
-class visitRequestController 
+class allController 
 
 {
-   private $visitRequestModel; //requestvisit model object
-   private $usersModel; //usere model object
+   private $allModel; //requestvisit model object
+   //private $usersModel; //usere model object
    
-   public function __construct(visitRequestModel $vrmodel, usersModel $usersmodel) 
+   public function __construct(alltModel $allmodel) 
            
    {
-       $this->visitRequestModel     =    $vrmodel;
-       $this->usersModel     =    $usersmodel;
+       $this->allModel     =    $allmodel;
+     //  $this->usersModel     =    $usersmodel;
        
    }
    
-   public function messageCenter()
+   public function getTrainingPackages()
    {
 //       $table = 'visitrequest';
 //       $count= $this->visitRequestModel->getCount($table);
@@ -39,23 +38,19 @@ class visitRequestController
 //       echo $rows;
        //array of visits from model 
 //      echo $_SERVER['PHP_SELF'];
-       $visits = $this->visitRequestModel->GetBydate();
+       $trainingpackages = $this->allModel->getTrainingPackages();
        //$users = $this->usersModel->get();
        
         
-       System::get('tpl')->assign('visits',$visits);
+       System::get('tpl')->assign('trainingpackages',$trainingpackages);
        //System::get('tpl')->assign('users',$users);
-       System::get('tpl')->assign('username',$_SESSION['name']);
+       //System::get('tpl')->assign('username',$_SESSION['name']);
        // echo $_SESSION['name'].$_SESSION['username'];
-       System::get('tpl')->assign('title','Visit Request Message');
-       System::get('tpl')->draw('messagecenter');
+       //System::get('tpl')->assign('title','Visit Request Message');
+       System::get('tpl')->draw('trainingPackages');
        
        
    }
-   
-         
-   
-
    
 
    public function upload()
@@ -150,7 +145,6 @@ class visitRequestController
        
    }
 
-
    
    public function addOneVisit()
    {
@@ -215,7 +209,6 @@ class visitRequestController
        
    }
     
-   
     public function Update()
    {
         if(isset($_POST['updateonevisit']))

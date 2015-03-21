@@ -11,25 +11,24 @@
  *
  * @author Mohamed Hafez
  */
-class visitRequestModel 
+class allModel 
 {
     
   /*
-     * *Get All visits requested
+     * *Get All trainingPackages 
      */
-    public function Get($extra='')
+    public function getTrainingPackages($extra='')
             
     {
-        $visits = array();
-        System::get('db')->Execute("SELECT `visitrequest`.*,`users`.`name` FROM `visitrequest` "
-                                   ."LEFT JOIN `users` ". " ON `visitrequest`.`user_id`=`users`.`user_id`  {$extra} ");
+        $trainingpackages = array();
+        System::get('db')->Execute("SELECT * FROM `trainingpackages` {$extra} ");
                 
         if(System::get('db')->AffectedRows()>0)
         
-                $visits = System::get ('db')->GetRows();
+                $trainingpackages = System::get ('db')->GetRows();
         
         
-            return $visits;
+            return $trainingpackages;
             
             
         
