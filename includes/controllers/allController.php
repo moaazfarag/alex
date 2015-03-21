@@ -40,7 +40,7 @@ class allController
        //array of visits from model 
 //      echo $_SERVER['PHP_SELF'];
        $trainingpackages = $this->allModel->getTrainingPackages();
-       //$users = $this->usersModel->get();
+       //$users = $this->usersModel->get(); 
        
         
        System::get('tpl')->assign('trainingpackages',$trainingpackages);
