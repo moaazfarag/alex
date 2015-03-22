@@ -7,7 +7,7 @@
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->
-        <div class="">
+        <div class="row">
             <div class="col-sm-10">
                 <section class="panel">
                     <header class="panel-heading">
