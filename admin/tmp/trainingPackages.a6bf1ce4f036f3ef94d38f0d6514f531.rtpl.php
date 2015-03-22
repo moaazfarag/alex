@@ -7,8 +7,8 @@
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->
-        <div class="row">
-            <div class="col-sm-12">
+        <div class="">
+            <div class="col-sm-10">
                 <section class="panel">
                     <header class="panel-heading">
                         <center> جميع الحقائب التدريبية</center>
@@ -45,8 +45,6 @@
                                                             
                                     </script>
 
-                                  <th><input type="checkbox" id="checkall" ></th>
-                                  <th>ID</th>
                                   <th>اسم الحقيبة</th>
                                   <th>نبذة عن الحقيبة</th>
                                   <th>وصف كامل عن الحقيبة</th>
@@ -60,7 +58,6 @@
                                   <?php $counter1=-1; if( isset($trainingpackages) && is_array($trainingpackages) && sizeof($trainingpackages) ) foreach( $trainingpackages as $key1 => $value1 ){ $counter1++; ?>
                               <tr>
 
-                                  <td><input type="checkbox" class="checkbox1" name="check_list[]" ></td>
                                   <td><?php echo $value1["name"];?></td>
                                   <td><a href="#" style="color: blue; "><?php echo $value1["name"];?></a></td>
                                   <td><?php echo $value1["mini_description"];?></td>
