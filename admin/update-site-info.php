@@ -26,5 +26,6 @@ $allmod     = new allModel();
  */
 $controller     = new allController ($allmod);
 
-$controller->siteInfoView();
+$controller->updateMultiple();
+
 

@@ -33,6 +33,22 @@ class allModel
             
         
     }
+    public function getSiteInfo($extra='')
+            
+    {
+        $info = array();
+        System::get('db')->Execute("SELECT * FROM `navbar` {$extra} ");
+                
+        if(System::get('db')->AffectedRows()>0)
+        
+                $info = System::get ('db')->GetRows();
+        
+        
+            return $info;
+            
+            
+        
+    }
     
       /**
        * 
@@ -179,12 +195,19 @@ class allModel
                 }
                
     }
-    public function updateMultiple($impcheck_list,$sleceted_id)
+    public function updateMultiple($tg,$dg,$ta,$da,$tv,$dv,$tm,$dm,$ts,$ds,$tp,$dp)
             
     {
        
         //$id = (int)$id;
-       if(System::get('db')->Execute("UPDATE  `visitrequest` SET `user_id`= $sleceted_id WHERE `id` IN(".$impcheck_list.")"))
+       if(System::get('db')->Execute("INSERT INTO `navbar` (`id`,`title`,`description`)"
+                                            . "VALUES (1,'$tg','$dg'),"
+                                            . "(2,'$ta','$da'),"
+                                            . "(3,'$tv','$dv'),"
+                                            . "(4,'$tm','$dm'),"
+                                            . "(5,'$ts','$ds'),"
+                                            . "(6,'$tp','$dp')"
+                                        . "ON DUPLICATE KEY UPDATE `title`=VALUES(`title`),`description`=VALUES(`description`)"))
            { 
            
             return TRUE;
