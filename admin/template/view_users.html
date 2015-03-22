@@ -9,16 +9,17 @@
     Version: 1.0
 */
 -->
-
 <html lang="ar">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Adminy Admin Panal</title>
+        <title>Admin Panal</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/icon.css" rel="stylesheet">
         <link id="css" rel="stylesheet">
+
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -78,6 +79,7 @@
             </ul>
         </div>
         <!--End Mobile Size Main Meni-->
+
 
         <!--Start Admin Panal Main Body-->
         <div class="container-fluid main_block">
@@ -179,104 +181,138 @@
             <!--Start Admin Panal MAin Content Right Block-->
             <div class="main_container col-lg-9 col-md-8 col-sm-9 col-xs- pull-left">
                 <div class="row main_container_head">
-                    <h4><span class="glyphicon glyphicon-home"></span>الصفحة الرئيسية </h4>
+                    <h4><span class="glyphicon glyphicon-user"></span>أعضاء الموقع </h4>
                 </div>
 
                 <div class="row control_panal_body">
                     <!--Start Admin Panal Section Description-->
-                    <p class="page_desc">مرحبا بك في الصفحه الرئيسيه للوحة تحكم موقعك...</p>
+                    <p class="page_desc">يمكنك عرض اعضاء موقعك والتحكم فيهم من الحقول ادناه</p>
                     <!--End Admin Panal Section Description-->
 
-                    <div class="admin_index">
-                        <!--Start Site Status-->
-                        <div class="panel panel-default">
-                            <div class="panel-heading text-right h4">احصائيات عامه عن الموقع</div>
-                            <div class="text-center">
-                                <div class="status">
-                                    <h3 class="h4">المتواجدون الان</h3>
-                                    <span><span class="glyphicon glyphicon-eye-open"></span></span>
-                                    <h4 class="english">144</h4>
-                                </div>
-                                <div class="status">
-                                    <h3 class="h4">عدد الاعضاء</h3>
-                                    <span><span class="glyphicon glyphicon-user"></span></span>
-                                    <h4 class="english">222</h4>
-                                </div>
-                                <div class="status">
-                                    <h3 class="h4">عدد الصفحات</h3>
-                                    <span><span class="icon-file"></span></span>
-                                    <h4 class="english">222</h4>
-                                </div>
-                                <div class="status">
-                                    <h3 class="h4">عدد المقالات</h3>
-                                    <span><span class="glyphicon glyphicon-edit"></span></span>
-                                    <h4 class="english">222</h4>
-                                </div>
-                                <div class="status">
-                                    <h3 class="h4">عدد الاقسام</h3>
-                                    <span><span class="glyphicon glyphicon-folder-open"></span></span>
-                                    <h4 class="english">222</h4>
-                                </div>
-                                <div class="status">
-                                    <h3 class="h4">عمر الموقع بالايام</h3>
-                                    <span><span class="glyphicon glyphicon-hourglass"></span></span>
-                                    <h4 class="english">222</h4>
-                                </div>
-                                <div class="status">
-                                    <h3 class="h4">عدد المديرين</h3>
-                                    <span><span class="icon-user2"></span></span>
-                                    <h4 class="english">222</h4>
-                                </div>
-                                <div class="status">
-                                    <h3 class="h4">عدد الصور</h3>
-                                    <span><span class="glyphicon glyphicon-picture"></span></span>
-                                    <h4 class="english">222</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End Site Status-->
 
-                        <!--Start Note Panal-->
-                        <div class="panel panel-default">
-                            <!-- panel contents -->
-                            <div class="panel-heading text-right h4">ملاحطات مديري الموقع
-                                <a href="" title="إضافة جديد" class="pull-left text-primary glyphicon glyphicon-plus-sign"></a>
-                            </div>
-                            <div class="panel-body text-right">
-                                <p>هنا يمكنك  إضافه ملاحظات او معلومات لتظهر لجميع مديري الموقع او لتذكيرك بعمل معين في الموقع</p>
-                            </div>
-                            <!-- Table -->
+                    <div class="alert alert-success h5" role="alert">تمت الاضافه بنجاح</div>
+                    <div class="alert alert-danger h4" role="alert"><strong>خطأ!</strong> .. لم يتم الاضافه</div>
+
+
+
+                    <div class="admin_index">
+                        <!--Start Site Main Options and Data-->
+                        <div class="panel panel-default view_users">
+                            <div class="panel-heading text-right h4">عرض كل الاعضاء</div>
+
                             <table class="table">
-                                <tr class="h4">
+                                <tr class="h4 text-center">
                                     <td class="">#</td>
-                                    <td class="">العنوان</td>
-                                    <td class="">الكاتب</td>
-                                    <td class="">الملحوظة</td>
+                                    <td class="">صوره</td>
+                                    <td class="">اسم المستخدم</td>
+                                    <td class="">البريد الالكتروني</td>
                                     <td class="text-center">التحكم</td>
                                 </tr>
-                                <tr>
+                                <tr class="text-center">
                                     <td class="english">1</td>
-                                    <td>ضروري</td>
+                                    <td><img src="img/user.jpg" alt=""></td>
                                     <td>Hosam</td>
-                                    <td>مثال علي ملاحظه تكتب هنا</td>
+                                    <td>hosam.zewain@gmail.com</td>
                                     <td class="text-center">
                                         <a href="" title="view" class="glyphicon glyphicon-zoom-in"></a>
                                         <a href="" title="delete" class="glyphicon glyphicon-remove"></a>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr class="text-center">
                                     <td class="english">2</td>
-                                    <td>الي حسام</td>
+                                    <td><img src="img/user.jpg" alt=""></td>
                                     <td>Ahmed</td>
-                                    <td>مثال علي ملاحظه اخري تكتب هنا</td>
+                                    <td>info@roqay.com</td>
+                                    <td class="text-center">
+                                        <a href="" title="view" class="glyphicon glyphicon-zoom-in"></a>
+                                        <a href="" title="delete" class="glyphicon glyphicon-remove"></a>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td class="english">3</td>
+                                    <td><img src="img/user.jpg" alt=""></td>
+                                    <td>Hosam</td>
+                                    <td>hosam.zewain@gmail.com</td>
+                                    <td class="text-center">
+                                        <a href="" title="view" class="glyphicon glyphicon-zoom-in"></a>
+                                        <a href="" title="delete" class="glyphicon glyphicon-remove"></a>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td class="english">4</td>
+                                    <td><img src="img/user.jpg" alt=""></td>
+                                    <td>Ahmed</td>
+                                    <td>info@roqay.com</td>
+                                    <td class="text-center">
+                                        <a href="" title="view" class="glyphicon glyphicon-zoom-in"></a>
+                                        <a href="" title="delete" class="glyphicon glyphicon-remove"></a>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td class="english">5</td>
+                                    <td><img src="img/user.jpg" alt=""></td>
+                                    <td>Hosam</td>
+                                    <td>hosam.zewain@gmail.com</td>
+                                    <td class="text-center">
+                                        <a href="" title="view" class="glyphicon glyphicon-zoom-in"></a>
+                                        <a href="" title="delete" class="glyphicon glyphicon-remove"></a>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td class="english">6</td>
+                                    <td><img src="img/user.jpg" alt=""></td>
+                                    <td>Ahmed</td>
+                                    <td>info@roqay.com</td>
+                                    <td class="text-center">
+                                        <a href="" title="view" class="glyphicon glyphicon-zoom-in"></a>
+                                        <a href="" title="delete" class="glyphicon glyphicon-remove"></a>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td class="english">7</td>
+                                    <td><img src="img/user.jpg" alt=""></td>
+                                    <td>Hosam</td>
+                                    <td>hosam.zewain@gmail.com</td>
+                                    <td class="text-center">
+                                        <a href="" title="view" class="glyphicon glyphicon-zoom-in"></a>
+                                        <a href="" title="delete" class="glyphicon glyphicon-remove"></a>
+                                    </td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td class="english">8</td>
+                                    <td><img src="img/user.jpg" alt=""></td>
+                                    <td>Ahmed</td>
+                                    <td>info@roqay.com</td>
                                     <td class="text-center">
                                         <a href="" title="view" class="glyphicon glyphicon-zoom-in"></a>
                                         <a href="" title="delete" class="glyphicon glyphicon-remove"></a>
                                     </td>
                                 </tr>
                             </table>
+
+
+                            <nav class="english text-center ltr">
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
                         </div>
-                        <!--End Note Panal-->
+                        <!--End Site Main Options and Data-->
                     </div>
                 </div>
             </div>
@@ -288,13 +324,10 @@
         <!--Start Footer-->
         <div class="container-fluid last-foot"></div>
         <!--End Footer-->
-
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/adminy.js"></script>
-
-
     </body>
 </html>
