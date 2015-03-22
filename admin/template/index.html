@@ -89,7 +89,7 @@
                     <a class="main_menu_link" href="index.html"><span class="glyphicon glyphicon-home menu_link_icon"></span>الصفحة الرئيسية</a>
                 </div>
                 <div class="panel-group">
-                    <a class="main_menu_link" href="siteinfo.html"><span class="glyphicon glyphicon-link menu_link_icon"></span>بيانات الموقع</a>
+                    <a class="main_menu_link" href="siteInfo.php"><span class="glyphicon glyphicon-link menu_link_icon"></span>بيانات الموقع</a>
                 </div>
 
                 <div class="panel-group" role="tablist">
@@ -104,18 +104,7 @@
                     </div>
                 </div>
 
-                <div class="panel-group" role="tablist">
-                    <a class="main_menu_link" data-toggle="collapse" href="#cats" role="tab" aria-expanded="false" aria-controls="cats">
-                        <span class="glyphicon glyphicon-folder-open menu_link_icon"></span>الفئات والاقسام<span class="caret"></span>
 
-                    </a>
-                    <div id="cats" class="panel-collapse collapse" role="tab" aria-expanded="false">
-                        <ul class="list-group cols_item">
-                            <li><a href="add_section.html">إضافة جديد</a></li>
-                            <li><a href="veiw_sections.html">عرض الكل</a></li>
-                        </ul>
-                    </div>
-                </div>
 
                 <div class="panel-group" role="tablist">
                     <a class="main_menu_link" data-toggle="collapse" href="#addnew11" role="tab" aria-expanded="false" aria-controls="addnew11">
@@ -141,17 +130,6 @@
                     </div>
                 </div>
 
-                <div class="panel-group" role="tablist">
-                    <a class="main_menu_link" data-toggle="collapse" href="#slide" role="tab" aria-expanded="false" aria-controls="slide">
-                        <span class="glyphicon glyphicon-film menu_link_icon"></span>السلايد شو<span class="caret"></span>
-                    </a>
-                    <div id="slide" class="panel-collapse collapse" role="tab" aria-expanded="false">
-                        <ul class="list-group cols_item">
-                            <li><a href="add_photo.html">إضافة جديد</a></li>
-                            <li><a href="view_photos.html">عرض الكل</a></li>
-                        </ul>
-                    </div>
-                </div>
 
                 <div class="panel-group" role="tablist">
                     <a class="main_menu_link" data-toggle="collapse" href="#mailist" role="tab" aria-expanded="false" aria-controls="mailist">
@@ -169,9 +147,6 @@
                     <a class="main_menu_link" href="ads_control.html"><span class="glyphicon glyphicon-text-color menu_link_icon"></span>الاعلانات</a>
                 </div>
 
-                <div class="panel-group">
-                    <a class="main_menu_link" href="site_down.html"><span class="icon-cogs menu_link_icon"></span>تعطيل الموقع</a>
-                </div>
 
             </div>
             <!--End Admin Panal Main Left Menu-->
