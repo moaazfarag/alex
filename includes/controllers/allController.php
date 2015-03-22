@@ -212,22 +212,21 @@ class allController
     
     public function Update()
    {
-        if(isset($_POST['updateonevisit']))
+        if(isset($_POST['update']))
          
         {
             //casting id
-            $id = (int)$_POST['id'];
                 
-            //article data array
+            //site info data data array
             //varaibles
             
             
-           $dslnumber       = (int)$_POST['dslnumber']; // title
+           $dslnumber       = $_POST['dslnumber']; // title
            $exchange        = $_POST['exchange']; // content
-           $mobile          = (int)$_POST['mobile']; // content
+           $mobile          = $_POST['mobile']; // content
            $leadername      = $_POST['leadername']; // content
-           $leadermobile    = (int)$_POST['leadermobile']; // content
-           $user_id         = (int)$_POST['user_id']; // content
+           $leadermobile    = $_POST['leadermobile']; // content
+           $user_id         = $_POST['user_id']; // content
            
             //Validation
 
@@ -403,44 +402,57 @@ class allController
                 System::Get('tpl')->draw('error');
             }
         }
-
+/**
+ * multi update for site info page
+ */
         public function updateMultiple()
    {
        
        
-       if( isset($_POST['update']) && !empty($_POST['update']))
+       if( isset($_POST['update']))
            {
-            if(empty($check_list) || $check_list == 0)
-                
-                            System::get('tpl')->assign('message','empty select');
-                            System::get('tpl')->draw('error');
-            }else{
-                      
-                        $check_list = $_POST['check_list'];
-                        $selected_id= $_POST['selected_id'];
-                        
-                         $impcheck_list = implode(", ",$check_list) ;
-                      
-
-                         
-                         if ($this->visitRequestModel->updateMultiple($impcheck_list,$selected_id))
+                        $tg = $_POST['1'];
+                        $dg = $_POST['goal'];
+                        $ta = $_POST['2'];
+                        $da = $_POST['about'];
+                        $tv = $_POST['3'];
+                        $dv = $_POST['vision'];
+                        $tm = $_POST['4'];
+                        $dm= $_POST['message'];
+                        $ts = $_POST['5'];
+                        $ds = $_POST['services'];
+                        $tp = $_POST['6'];
+                        $dp = $_POST['pay'];
+                         if ($this->allModel->updateMultiple($tg,$dg,$ta,$da,$tv,$dv,$tm,$dm,$ts,$ds,$tp,$dp))
                                 {
                              
-                                            System::get('tpl')->assign('message','Updated');
-                                            System::get('tpl')->assign('username',$_SESSION['username']);
-                                            System::get('tpl')->draw('success');
-                                            
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->assign('message','تم التحديث بنجاح');
+                        System::get('tpl')->draw('success'); 
                                 }else
                                     {
                                             System::get('tpl')->assign('message','Not Updated');
-                                            System::get('tpl')->assign('username',$_SESSION['username']);
+                                            //System::get('tpl')->assign('username',$_SESSION['username']);
                                             System::get('tpl')->draw('error');                                    
                                     }
                       }
     }
     
-
+public function siteInfoView(){
+    $info = $this->allModel->getSiteInfo();
+    if($info>0)
+    {
+                        System::Get('tpl')->assign('info',$info);
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->draw('siteinfo'); 
+    }else{
+    
+                        System::get('tpl')->assign('message','حدث شئ خطا :(');
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->draw('error'); 
+    
+    }
  
-   
+} 
 
 }
