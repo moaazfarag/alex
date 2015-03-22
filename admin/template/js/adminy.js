@@ -112,7 +112,7 @@ $(document).ready(function() {
     $(".last-foot").append("<p class='english'>Released as Open Source under the <a href='http://www.opensource.com/licenses'>Creative Commons Attribution 4.0 license </a>    -   By : <a href='http://www.roqay.com'>Roqay </a> -  Ver. 1.0.0</p> ");
 
     if ($.cookie("href") == undefined) {
-        x = "css/light_style.css";
+        x = "./template/css/light_style.css";
         $("#css").attr("href", x);
     } else {
         x = $.cookie("href");
@@ -120,12 +120,12 @@ $(document).ready(function() {
 
     }
     $(".dark").click(function() {
-        x = "css/dark_style.css";
+        x = "./template/css/dark_style.css";
         $("#css").attr("href", x);
         $.cookie("href", x);
     });
     $(".light").click(function() {
-        x = "css/light_style.css";
+        x = "./template/css/light_style.css";
         $("#css").attr("href", x);
         $.cookie("href", x);
     });
