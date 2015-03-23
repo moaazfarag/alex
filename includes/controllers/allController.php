@@ -28,7 +28,118 @@ class allController
      //  $this->usersModel     =    $usersmodel;
        
    }
-   
+   /**
+    * add photo to admin/tempalate/images folder 
+    * and save info in database in upload table  
+    */
+   public function addPhoto()
+           {
+       
+       if(isset($_POST['import']))
+           
+           {
+                $date = date("Y-m-d-h-i-sa");
+                $info = pathinfo($_FILES['image_up']['name']);
+                $ext = $info['extension']; 
+                $file_desc = $_POST['image-desc'];
+                $image_name = $_POST['image-name'];
+                $filename  = $image_name.$date.'.'.$ext; 
+                $filenameonly  = $image_name.$date; 
+                $target = 'template/images/'.$filename;
+                $url = 'images/'.$filename;
+                if(!empty($ext))
+                {
+                    $data=array(
+                            'file_name'=>$filenameonly,
+                            'file_desc'=>$file_desc,
+                            'file_ext'=>$ext,
+                            'url'=>$url,
+                            'date'=>$date
+                            );
+                 $this->allModel->addNewFile($data);
+                move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
+                System::get('tpl')->draw('header-admin');
+                System::get('tpl')->assign('message','تم اضافة  الملف بنجاح');
+                System::get('tpl')->draw('success');
+//                System::RedirectTo('http://www.google.com');
+                }
+                else
+                {
+                     $info['extension']=NULL;
+                System::Get('tpl')->draw('header-admin');
+                System::get('tpl')->assign('message','لا يوجد ملف برجاء  اختيار الملف');
+                System::Get('tpl')->draw('error');   
+                    
+                }
+           }
+       
+       else
+           {
+        System::Get('tpl')->draw('header-admin');
+        System::Get('tpl')->draw('add_photo');
+            }
+       
+           }
+           /**
+            * view all photo
+            * 
+            */
+   public function viewAllPhoto()
+        {
+                $table="upload";
+             $files = $this->allModel->get($table);
+    if($files>0)
+    {
+                        System::Get('tpl')->assign('files',$files);
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->draw('view_photos'); 
+    }else{
+    
+                        System::get('tpl')->assign('message','حدث شئ خطا :(');
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->draw('error'); 
+    
+    }   
+    
+
+        }       
+   /**
+    * delete image from database and folder 
+    * 
+    * 
+    */   
+   public function deletePhoto()
+           {
+           $id=(int)$_GET['img_id'];
+           $table = 'upload';
+           $col='upload_id';
+          
+           if(!empty($id) && (int)$id >0 )
+               {
+                   $id=(int)$_GET['img_id'];
+                   $path= $_GET['path'];
+                   $table = "upload";
+                   $col="upload_id";
+                   unlink($path);
+               $delete = $this->allModel->Delete($table,$col,$id);
+               if($delete)
+               {
+                System::get('tpl')->draw('header-admin');
+                System::get('tpl')->assign('message','تم حذف  الملف بنجاح');
+                System::get('tpl')->draw('success');   
+               }else{
+                 System::get('tpl')->draw('header-admin');
+                System::get('tpl')->assign('message','رقم غير صحيح');
+                System::get('tpl')->draw('error');  
+               }
+               
+            }else
+                {
+                System::get('tpl')->draw('header-admin');
+                System::get('tpl')->assign('message','رقم غير صحيح');
+                System::get('tpl')->draw('error'); 
+                }
+            }
    public function getTrainingPackages()
    {
 
@@ -438,7 +549,8 @@ class allController
                       }
     }
     
-public function siteInfoView(){
+public function siteInfoView()
+        {
     $info = $this->allModel->getSiteInfo();
     if($info>0)
     {

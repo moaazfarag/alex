@@ -49,6 +49,44 @@ class allModel
             
         
     }
+    /**
+     * 
+     * @param type $table name of table you get from 
+     * @param type $extra add any SQL query 
+     * @return type
+     */
+    public function get($table,$extra='')
+            
+    {
+        $info = array();
+        System::get('db')->Execute("SELECT * FROM `$table` {$extra} ");
+                
+        if(System::get('db')->AffectedRows()>0)
+        
+                $info = System::get ('db')->GetRows();
+        
+        
+            return $info;
+            
+            
+        
+    }
+    /**
+     * 
+     * @param type $table name of table you delete  from 
+     * @param type $id id off record 
+     * @return boolean
+     * 
+     */
+        public function Delete($table,$col,$id)
+    {
+      $id = (int)$id ;
+      
+      if(System::get('db')->Delete($table,"WHERE `$col` = $id"))
+          return TRUE;
+      
+      return FALSE;
+    }
     
       /**
        * 
@@ -149,6 +187,19 @@ class allModel
         return FALSE;
         
     }
+    /*
+     * 
+     * insert ulpoaded visit returne true if visit inserted
+     */ 
+    public function addNewFile($data)
+            
+    {
+        if (System::get('db')->Insert('upload',$data))
+            return TRUE;
+        
+        return FALSE;
+        
+    }
     
     /*
      * 
@@ -169,16 +220,7 @@ class allModel
      * 
      * delete articles by $id
      */
-    public function Delete($id)
-            
-    {
-        $id = (int)$id;
-        if (System::get('db')->Delete('visitrequest',"WHERE `id` = $id"))
-        return TRUE;
-        
-     
-        return FALSE;
-    }
+
     public function deleteMultiple($impcheck_list)
             
     {
