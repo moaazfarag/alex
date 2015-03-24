@@ -54,7 +54,7 @@ class allModel
      * @param type $extra add any SQL query 
      * @return type
      */
-    public function Get($extra='')
+    public function GetForUpload($extra='')
             
     {
         $info = array();
@@ -91,34 +91,17 @@ class allModel
             
     {
         $visits = array ();
-        $visits = $this->Get("GROUP BY `date` ");
+        $visits = $this->GetForUpload("GROUP BY `date` ");
         //if (isset($article[0]))
             return $visits;
         
     }
-    
-//        public function getCount($id)
-//            
-//    {
-//            
-//       
-//        System::get('db')->Execute("SELECT COUNT(*) FROM `visitrequest` WHERE `user_id` = '$id' ");
-//        $count = System::get ('db')->GetRows(); 
-//        return $count[0]; 
-//        
-//
-//    }
-/**
- * 
- * @param type $id of record 
- * @param type $col which colmun you want use with WHERE 
- * @return type
- */
+
     public function Get_By_Id($id,$col)
     {
         $id = (int)$id;
         $info = array ();
-        $info = $this->Get("WHERE `$col` = $id");
+        $info = $this->GetForUpload("WHERE `$col` = $id");
             return @$info[0];
     }
     
@@ -185,10 +168,24 @@ class allModel
      * 
      * insert ulpoaded visit returne true if visit inserted
      */ 
-    public function addNewFile($data)
+    public function addNewFile($imgData)
             
     {
-        if (System::get('db')->Insert('upload',$data))
+        if (System::get('db')->Insert('upload',$imgData))
+            return TRUE;
+        
+        return FALSE;
+        
+    }
+    /**
+     * 
+     * @param type $data topic data
+     * @return boolean
+     */
+    public function addNewTopic($topicData)
+            
+    {
+        if (System::get('db')->Insert('topic',$topicData))
             return TRUE;
         
         return FALSE;
@@ -255,6 +252,23 @@ class allModel
                 }
                
     }
-    
+        
+//        public function getCount($id)
+//            
+//    {
+//            
+//       
+//        System::get('db')->Execute("SELECT COUNT(*) FROM `visitrequest` WHERE `user_id` = '$id' ");
+//        $count = System::get ('db')->GetRows(); 
+//        return $count[0]; 
+//        
+//
+//    }
+/**
+ * 
+ * @param type $id of record 
+ * @param type $col which colmun you want use with WHERE 
+ * @return type
+ */
     
 }

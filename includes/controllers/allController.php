@@ -37,15 +37,16 @@ class allController
        
                 if(isset($_POST['import']))
                     {
-                         $date          = date("Y-m-d-h-i-sa");  // now time and date 
+                         $date          = date("Y-m-d-h-i-s");  // now time and date 
                          $info          = pathinfo($_FILES['image_up']['name']); // file info using POST name "image_up"
                          $ext           = $info['extension']; // get file extension
                          $file_desc     = $_POST['image-desc']; // get file DESC using POST 
-                         $image_name    = $_POST['image-name']; // get file Name  using POST
+                         $image_name    = "img"; // get file Name  using staic name
                          $filename      = $image_name.$date.'.'.$ext; // Create file name included  extension to store in database
                          $filenameonly  = $image_name.$date; // file name with date 
                          $target        = 'template/images/'.$filename; // path of server folder 
                          $url           = 'images/'.$filename; // create url to use in href 
+                         $section       = "img"; // set section type 
                          
                          if(!empty($ext))
                          {
@@ -55,7 +56,8 @@ class allController
                                         'file_desc'=>$file_desc,
                                         'file_ext' =>$ext,
                                         'url'      =>$url,
-                                        'date'     =>$date
+                                        'date'     =>$date,
+                                        'section'  =>$section
                                         );
                             $this->allModel->addNewFile($data);
                             move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
@@ -76,13 +78,76 @@ class allController
                         System::Get('tpl')->draw('add_photo');
                     }
            }
+   /**
+    *  Add topic to topic table
+    *  & 
+    * Add photo to upload table 
+    */
+   public function addTopic()
+           {
+       
+                if(isset($_POST['add_topic']))
+                    {
+                         $date          = date("Y-m-d-h-i-s");  // now time and date 
+                         $info          = pathinfo($_FILES['image_up']['name']); // file info using POST name "image_up"
+                         $ext           = $info['extension']; // get file extension
+                         $image_name    = "topicImg"; // get file Name  using staic name
+                         $filename      = $image_name.$date.'.'.$ext; // Create file name included  extension to store in database
+                         $filenameonly  = $image_name.$date; // file name with date 
+                         $target        = 'template/images/'.$filename; // path of server folder 
+                         $url           = 'images/'.$filename; // create url to use in href 
+                         $section       = "topic_img"; // set section type 
+                         $topic_title   = $_POST['topic_title']; //topic title using POST
+                         $topic_desc    = $_POST['topic_desc']; //topic DESC using POST
+                         $topic         = $_POST['topic']; //add topic  using POST
+                         $type          = $_POST['topic_type']; //add type  using POST
+
+                         
+                         if(!empty($ext))
+                         {
+                                //array to store in database
+                                $imgData=array(
+                                        'file_name'=>$filenameonly,
+                                        'file_ext' =>$ext,
+                                        'url'      =>$url,
+                                        'date'     =>$date,
+                                        'section'  =>$section
+                                        );
+                                $topicData=array(
+                                        'title'     =>$topic_title,
+                                        'mini_desc' =>$topic_desc,
+                                        'topic'     =>$topic,
+                                        'type'      =>$type,
+                                        'date'      =>$date
+                                        );
+                                
+                            $this->allModel->addNewFile($imgData);
+                            $this->allModel->addNewTopic($topicData);
+                            move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
+                            System::get('tpl')->draw('header-admin');
+                            System::get('tpl')->assign('message','تم اضافة  الموضوع بنجاح');
+                            System::get('tpl')->draw('success');
+                            
+                         }else
+                            {
+   //                              $info['extension']=NULL;
+                                   System::Get('tpl')->draw('header-admin');
+                                   System::get('tpl')->assign('message','لا توجد صورة برجاء  اختيار صورة');
+                                   System::Get('tpl')->draw('error');   
+                            }
+                    }else
+                    {
+                        System::Get('tpl')->draw('header-admin');
+                        System::Get('tpl')->draw('add_topic');
+                    }
+           }
            /**
             * view all photo
             * 
             */
    public function viewAllPhoto()
         {
-            $files = $this->allModel->Get(); // get file from DataBase 
+            $files = $this->allModel->GetForUpload("WHERE `section`='img'"); // get file from DataBase 
                 if($files>0)
                 {
                                     System::Get('tpl')->assign('files',$files);
