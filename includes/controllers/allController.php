@@ -38,12 +38,12 @@ class allController
                 if(isset($_POST['import']))
                     {
                          $date          = date("Y-m-d-h-i-sa");  // now time and date 
-                         $info          = pathinfo($_FILES['image_up']['name']); // file info using POST name "image_up"
+                         $info          = pathinfo($_FILES['image_up']['name']); // file info using POST name "image_up"  
                          $ext           = $info['extension']; // get file extension
                          $file_desc     = $_POST['image-desc']; // get file DESC using POST 
                          $image_name    = $_POST['image-name']; // get file Name  using POST
                          $filename      = $image_name.$date.'.'.$ext; // Create file name included  extension to store in database
-                         $filenameonly  = $image_name.$date; // file name with date 
+                         $filenameonly  = $image_name.$date; // file name with date without ext 
                          $target        = 'template/images/'.$filename; // path of server folder 
                          $url           = 'images/'.$filename; // create url to use in href 
                          
@@ -108,8 +108,10 @@ class allController
                {
                             $table = 'upload';  // name of table delete from  to use in SQL Query
                             $col='upload_id';  // name of colmun to use in SQL Query 
-                        if(!empty($deleteFromServer = $this->allModel->Get_By_Id($id,$col)))
+                            $deleteFromServer = $this->allModel->Get_By_Id($id,$col); 
+                        if(!empty($deleteFromServer ))
                             {
+                                $deleteFromServer = $this->allModel->Get_By_Id($id,$col);
                                 $path= "template/".$deleteFromServer['url']; // path of file you want delete 
                                 unlink($path);   //to delete from server folder 
                                 $deleteFormDB = $this->allModel->Delete($table,$col,$id);  //to delete from database
