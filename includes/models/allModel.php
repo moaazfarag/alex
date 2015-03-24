@@ -50,26 +50,20 @@ class allModel
         
     }
     /**
-     * 
-     * @param type $table name of table you get from 
+     * get for upload table 
      * @param type $extra add any SQL query 
      * @return type
      */
-    public function get($table,$extra='')
+    public function Get($extra='')
             
     {
         $info = array();
-        System::get('db')->Execute("SELECT * FROM `$table` {$extra} ");
-                
+        System::get('db')->Execute("SELECT * FROM `upload`{$extra} ");
         if(System::get('db')->AffectedRows()>0)
-        
                 $info = System::get ('db')->GetRows();
         
         
             return $info;
-            
-            
-        
     }
     /**
      * 
@@ -114,18 +108,18 @@ class allModel
 //        
 //
 //    }
-    /*
-     * Get one visit
-     * 
-     * 
-     */
-    public function Get_By_Id($id)
+/**
+ * 
+ * @param type $id of record 
+ * @param type $col which colmun you want use with WHERE 
+ * @return type
+ */
+    public function Get_By_Id($id,$col)
     {
         $id = (int)$id;
-        $visit = array ();
-        $visit = $this->Get("WHERE id = $id");
-        //if (isset($article[0]))
-            return $visit[0];
+        $info = array ();
+        $info = $this->Get("WHERE `$col` = $id");
+            return @$info[0];
     }
     
     

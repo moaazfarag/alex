@@ -35,50 +35,46 @@ class allController
    public function addPhoto()
            {
        
-       if(isset($_POST['import']))
-           
-           {
-                $date = date("Y-m-d-h-i-sa");
-                $info = pathinfo($_FILES['image_up']['name']);
-                $ext = $info['extension']; 
-                $file_desc = $_POST['image-desc'];
-                $image_name = $_POST['image-name'];
-                $filename  = $image_name.$date.'.'.$ext; 
-                $filenameonly  = $image_name.$date; 
-                $target = 'template/images/'.$filename;
-                $url = 'images/'.$filename;
-                if(!empty($ext))
-                {
-                    $data=array(
-                            'file_name'=>$filenameonly,
-                            'file_desc'=>$file_desc,
-                            'file_ext'=>$ext,
-                            'url'=>$url,
-                            'date'=>$date
-                            );
-                 $this->allModel->addNewFile($data);
-                move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
-                System::get('tpl')->draw('header-admin');
-                System::get('tpl')->assign('message','تم اضافة  الملف بنجاح');
-                System::get('tpl')->draw('success');
-//                System::RedirectTo('http://www.google.com');
-                }
-                else
-                {
-                     $info['extension']=NULL;
-                System::Get('tpl')->draw('header-admin');
-                System::get('tpl')->assign('message','لا يوجد ملف برجاء  اختيار الملف');
-                System::Get('tpl')->draw('error');   
-                    
-                }
-           }
-       
-       else
-           {
-        System::Get('tpl')->draw('header-admin');
-        System::Get('tpl')->draw('add_photo');
-            }
-       
+                if(isset($_POST['import']))
+                    {
+                         $date          = date("Y-m-d-h-i-sa");  // now time and date 
+                         $info          = pathinfo($_FILES['image_up']['name']); // file info using POST name "image_up"
+                         $ext           = $info['extension']; // get file extension
+                         $file_desc     = $_POST['image-desc']; // get file DESC using POST 
+                         $image_name    = $_POST['image-name']; // get file Name  using POST
+                         $filename      = $image_name.$date.'.'.$ext; // Create file name included  extension to store in database
+                         $filenameonly  = $image_name.$date; // file name with date 
+                         $target        = 'template/images/'.$filename; // path of server folder 
+                         $url           = 'images/'.$filename; // create url to use in href 
+                         
+                         if(!empty($ext))
+                         {
+                                //array to store in database
+                                $data=array(
+                                        'file_name'=>$filenameonly,
+                                        'file_desc'=>$file_desc,
+                                        'file_ext' =>$ext,
+                                        'url'      =>$url,
+                                        'date'     =>$date
+                                        );
+                            $this->allModel->addNewFile($data);
+                            move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
+                            System::get('tpl')->draw('header-admin');
+                            System::get('tpl')->assign('message','تم اضافة  الملف بنجاح');
+                            System::get('tpl')->draw('success');
+                            
+                         }else
+                            {
+   //                              $info['extension']=NULL;
+                                   System::Get('tpl')->draw('header-admin');
+                                   System::get('tpl')->assign('message','لا يوجد ملف برجاء  اختيار الملف');
+                                   System::Get('tpl')->draw('error');   
+                            }
+                    }else
+                    {
+                        System::Get('tpl')->draw('header-admin');
+                        System::Get('tpl')->draw('add_photo');
+                    }
            }
            /**
             * view all photo
@@ -86,22 +82,18 @@ class allController
             */
    public function viewAllPhoto()
         {
-                $table="upload";
-             $files = $this->allModel->get($table);
-    if($files>0)
-    {
-                        System::Get('tpl')->assign('files',$files);
-                        System::get('tpl')->draw('header-admin');
-                        System::get('tpl')->draw('view_photos'); 
-    }else{
-    
-                        System::get('tpl')->assign('message','حدث شئ خطا :(');
-                        System::get('tpl')->draw('header-admin');
-                        System::get('tpl')->draw('error'); 
-    
-    }   
-    
+            $files = $this->allModel->Get(); // get file from DataBase 
+                if($files>0)
+                {
+                                    System::Get('tpl')->assign('files',$files);
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('view_photos'); 
+                }else{
+                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('error'); 
 
+                }   
         }       
    /**
     * delete image from database and folder 
@@ -110,35 +102,35 @@ class allController
     */   
    public function deletePhoto()
            {
-           $id=(int)$_GET['img_id'];
-           $table = 'upload';
-           $col='upload_id';
-          
+           $id=(int)$_GET['img_id']; // id of img
+           
            if(!empty($id) && (int)$id >0 )
                {
-                   $id=(int)$_GET['img_id'];
-                   $path= $_GET['path'];
-                   $table = "upload";
-                   $col="upload_id";
-                   unlink($path);
-               $delete = $this->allModel->Delete($table,$col,$id);
-               if($delete)
-               {
-                System::get('tpl')->draw('header-admin');
-                System::get('tpl')->assign('message','تم حذف  الملف بنجاح');
-                System::get('tpl')->draw('success');   
-               }else{
-                 System::get('tpl')->draw('header-admin');
-                System::get('tpl')->assign('message','رقم غير صحيح');
-                System::get('tpl')->draw('error');  
-               }
-               
-            }else
-                {
-                System::get('tpl')->draw('header-admin');
-                System::get('tpl')->assign('message','رقم غير صحيح');
-                System::get('tpl')->draw('error'); 
-                }
+                            $table = 'upload';  // name of table delete from  to use in SQL Query
+                            $col='upload_id';  // name of colmun to use in SQL Query 
+                        if(!empty($deleteFromServer = $this->allModel->Get_By_Id($id,$col)))
+                            {
+                                $path= "template/".$deleteFromServer['url']; // path of file you want delete 
+                                unlink($path);   //to delete from server folder 
+                                $deleteFormDB = $this->allModel->Delete($table,$col,$id);  //to delete from database
+                                
+                                if($deleteFormDB>0&&$deleteFromServer>0)
+                                {
+                                 System::get('tpl')->draw('header-admin');
+                                 System::get('tpl')->assign('message','تم حذف  الملف بنجاح');
+                                 System::get('tpl')->draw('success');   
+                                }
+                            }else{
+                                   System::get('tpl')->draw('header-admin');
+                                   System::get('tpl')->assign('message','رقم غير صحيح');
+                                   System::get('tpl')->draw('error');  
+                                   }
+                }else{
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->assign('message','رقم غير صحيح');
+                        System::get('tpl')->draw('error'); 
+                     }
+                
             }
    public function getTrainingPackages()
    {
