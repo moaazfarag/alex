@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `upload` (
   `file_ext` varchar(50) NOT NULL,
   `url` varchar(255) NOT NULL,
   `date` date NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 --
 -- Indexes for dumped tables
