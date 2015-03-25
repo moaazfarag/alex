@@ -29,8 +29,8 @@ class allController
        
    }
    /**
-    * add photo to admin/tempalate/images folder 
-    * and save info in database in upload table  
+    * add photo or any file to admin/tempalate/images folder 
+    * and save info details in database in `upload` table  
     */
    public function addPhoto()
            {
@@ -61,21 +61,21 @@ class allController
                                         'date'     =>$date,
                                         'section'  =>$section
                                         );
-                            $this->allModel->addNewFile($data);
+                            $this->allModel->addNewFile($data); // insert photo or file that uploaded into `upload` database table
                             move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
                             System::get('tpl')->draw('header-admin');
-                            System::get('tpl')->assign('message','تم اضافة  الملف بنجاح');
+                            System::get('tpl')->assign('message',' تم اضافة الملف بنجاح');
                             System::get('tpl')->draw('success');
                             
                          }else
-                            {
+                            { // if no file chosen 
    //                              $info['extension']=NULL;
                                    System::Get('tpl')->draw('header-admin');
                                    System::get('tpl')->assign('message','لا يوجد ملف برجاء  اختيار الملف');
                                    System::Get('tpl')->draw('error');   
                             }
                     }else
-                    {
+                    { // if user not press at ['import'] button
                         System::Get('tpl')->draw('header-admin');
                         System::Get('tpl')->draw('add_photo');
                     }
@@ -93,16 +93,16 @@ class allController
                          $date          = date("Y-m-d-h-i-s");  // now time and date 
                          $info          = pathinfo($_FILES['image_up']['name']); // file info using POST name "image_up"
                          $ext           = $info['extension']; // get file extension
-                         $image_name    = "topicImg"; // get file Name  using staic name
-                         $filename      = $image_name.$date.'.'.$ext; // Create file name included  extension to store in database
+                         $image_name    = "topicImg"; // rename uploaded file as ('topicImg'.$date) staic name + date
+                         $filename      = $image_name.$date.'.'.$ext; // Create name for uploaded file +extension to insert in database
                          $filenameonly  = $image_name.$date; // file name with date 
                          $target        = 'template/images/'.$filename; // path of server folder 
-                         $url           = 'images/'.$filename; // create url to use in href 
+                         $url           = 'images/'.$filename; // create url to use in href because raintpl add (template) before direction
                          $section       = "topic_img"; // set section type 
-                         $topic_title   = $_POST['topic_title']; //topic title using POST
-                         $topic_desc    = $_POST['topic_desc']; //topic DESC using POST
-                         $topic         = $_POST['topic']; //add topic  using POST
-                         $type          = $_POST['topic_type']; //add type  using POST
+                         $topic_title   = $_POST['topic_title']; // topic title 
+                         $topic_desc    = $_POST['topic_desc']; //topic Description 
+                         $topic         = $_POST['topic']; //textarea text 
+                         $type          = $_POST['topic_type']; //add type of topic if event or media or press
 
                          
                          if(!empty($ext))
@@ -138,7 +138,7 @@ class allController
                                    System::Get('tpl')->draw('error');   
                             }
                     }else
-                    {
+                    { // if user not press at ['add_topic'] button
                         System::Get('tpl')->draw('header-admin');
                         System::Get('tpl')->draw('add_topic');
                     }

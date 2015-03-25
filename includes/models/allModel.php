@@ -166,7 +166,7 @@ class allModel
     }
     /*
      * 
-     * insert ulpoaded visit returne true if visit inserted
+     * insert ulpoaded pic returne true if pic inserted
      */ 
     public function addNewFile($imgData)
             
