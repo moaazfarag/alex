@@ -212,8 +212,7 @@ class allController
                                         'topic'     =>$topic,
                                         'type'      =>$type
                                         );
-                                        echo $topic_id;
-                            $topic=$this->allModel->UpdateForTopic( $topic_id, $topicData);
+                            $topic=$this->allModel->UpdateForTopic($topic_id,$topicData);
                             if($topic)
                                 {
                             System::get('tpl')->draw('header-admin');

@@ -246,7 +246,7 @@ class allModel
             
     {
         $id = (int)$id;
-        if (System::get('db')->update('topic',$data,"WHERE `topic_id`='17'"))
+        if (System::get('db')->update('topic',$data,"WHERE `topic_id`='$id'"))
             return TRUE;
 
            return FALSE;
