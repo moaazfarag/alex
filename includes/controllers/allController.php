@@ -28,6 +28,7 @@ class allController
      //  $this->usersModel     =    $usersmodel;
        
    }
+   
    /**
     * add photo or any file to admin/tempalate/images folder 
     * and save info details in database in `upload` table  
@@ -80,14 +81,16 @@ class allController
                         System::Get('tpl')->draw('add_photo');
                     }
            }
+           
    /**
     *  Add topic to topic table
     *  & 
     * Add photo to upload table 
     */
+           
    public function addTopic()
            {
-       
+           
                 if(isset($_POST['add_topic']))
                     {
                          $date          = date("Y-m-d-h-i-s");  // now time and date 
@@ -115,15 +118,18 @@ class allController
                                         'date'     =>$date,
                                         'section'  =>$section
                                         );
+                            $this->allModel->addNewFile($imgData);
+                            $col="file_name";
+                            $imgInfo=$this->allModel->getByElementFromUpload($filenameonly,$col);
+                            $upload_id=$imgInfo['upload_id'];
                                 $topicData=array(
                                         'title'     =>$topic_title,
                                         'mini_desc' =>$topic_desc,
                                         'topic'     =>$topic,
                                         'type'      =>$type,
-                                        'date'      =>$date
+                                        'date'      =>$date,
+                                        'upload_id' =>$upload_id
                                         );
-                                
-                            $this->allModel->addNewFile($imgData);
                             $this->allModel->addNewTopic($topicData);
                             move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
                             System::get('tpl')->draw('header-admin');
@@ -143,13 +149,105 @@ class allController
                         System::Get('tpl')->draw('add_topic');
                     }
            }
-           /**
-            * view all photo
-            * 
-            */
+   /**
+    *  Add topic to topic table
+    *  & 
+    * Add photo to upload table 
+    */
+           
+   public function updateTopic()
+           {
+                $topic_id=(int)$_GET['topic_id']; // id of Topic
+                if(isset($_POST['update_topic']))
+                    {
+                        
+                         $date          = date("Y-m-d-h-i-s");  // now time and date 
+                         $section       = "topic_img"; // set section type 
+                         $topic_title   = $_POST['topic_title']; // topic title 
+                         $topic_desc    = $_POST['topic_desc']; //topic Description 
+                         $topic         = $_POST['topic']; //textarea text 
+                         $type          = $_POST['topic_type']; //add type of topic if event or media or press
+
+                         if(!empty($_FILES['image_up']['name']))
+                         {
+
+                               $info          = pathinfo($_FILES['image_up']['name']); // file info using POST name "image_up"
+                               $ext           = $info['extension']; // get file extension
+                               $image_name    = "topicImg"; // rename uploaded file as ('topicImg'.$date) staic name + date
+                               $filename      = $image_name.$date.'.'.$ext; // Create name for uploaded file +extension to insert in database
+                               $filenameonly  = $image_name.$date; // file name with date 
+                               $target        = 'template/images/'.$filename; // path of server folder 
+                               $url           = 'images/'.$filename; // create url to use in href because raintpl add (template) before direction
+                                //array to store in database
+                                $imgData=array(
+                                        'file_name'=>$filenameonly,
+                                        'file_ext' =>$ext,
+                                        'url'      =>$url,
+                                        'date'     =>$date,
+                                        'section'  =>$section
+                                        );
+                            $col="file_name";
+                            $imgInfo=$this->allModel->getByElementFromUpload($filenameonly,$col);
+                            $upload_id=$imgInfo['upload_id'];
+                            $this->allModel->UpdateForUpload($upload_id,$imgData);
+                                $topicData=array(
+                                        'title'     =>$topic_title,
+                                        'mini_desc' =>$topic_desc,
+                                        'topic'     =>$topic,
+                                        'type'      =>$type,
+                                        'date'      =>$date,
+                                        'upload_id' =>$upload_id
+                                        );
+                            $this->allModel->UpdateForTopic($topic_id, $topicData);
+                            move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
+                            System::get('tpl')->draw('header-admin');
+                            System::get('tpl')->assign('message','تم اضافة  الموضوع بنجاح');
+                            System::get('tpl')->draw('success');
+                            
+                         }elseif(empty($_FILES['image_up']['name']))
+                         {
+                                        $topicData=array(
+                                        'title'     =>$topic_title,
+                                        'mini_desc' =>$topic_desc,
+                                        'topic'     =>$topic,
+                                        'type'      =>$type
+                                        );
+                                        echo $topic_id;
+                            $topic=$this->allModel->UpdateForTopic( $topic_id, $topicData);
+                            if($topic)
+                                {
+                            System::get('tpl')->draw('header-admin');
+                            System::get('tpl')->assign('message','تم تعديل  الموضوع بنجاح');
+                            System::get('tpl')->draw('success'); 
+                            }else{
+                               echo "error"; 
+                            }
+
+                         }else
+                            {
+   //                              $info['extension']=NULL;
+                                   System::Get('tpl')->draw('header-admin');
+                                   System::get('tpl')->assign('message','لا توجد صورة برجاء  اختيار صورة');
+                                   System::Get('tpl')->draw('error');   
+                            }
+                    }else
+                    { // if user not press at ['add_topic'] button
+                        $topic_col= 'topic_id';
+                        $topic = $this->allModel->getByElementFromTopic($topic_id,$topic_col); // get topic by id 
+                        System::get('tpl')->assign($topic);
+                        System::Get('tpl')->draw('header-admin');
+                        System::Get('tpl')->draw('update_topic');
+                    }
+           }
+           
+    /**
+     * view all photos
+     * 
+     */
+           
    public function viewAllPhoto()
         {
-            $files = $this->allModel->GetForUpload("WHERE `section`='img'"); // get file from DataBase 
+            $files = $this->allModel->GetFormUpload("WHERE `section`='img'"); // get file from DataBase 
                 if($files>0)
                 {
                                     System::Get('tpl')->assign('files',$files);
@@ -161,12 +259,101 @@ class allController
                                     System::get('tpl')->draw('error'); 
 
                 }   
-        }       
+        } 
+        
+    /**
+     *
+     * view all Topics
+     * or 
+     * view by type  
+     */
+        
+   public function viewAllTopic()
+        {
+
+            if(isset($_POST['view_type']))
+            {
+                $selected_type=$_POST['topic_type'];
+                if($selected_type=="all")
+                {
+                $topics = $this->allModel->GetFormTopic();
+                System::Get('tpl')->assign('topics',$topics);
+                System::get('tpl')->draw('header-admin');
+                System::get('tpl')->draw('view_topics'); 
+                }else{
+                $topics = $this->allModel->GetFormTopic("WHERE topic.type='$selected_type'");
+                System::Get('tpl')->assign('topics',$topics);
+                System::get('tpl')->draw('header-admin');
+                System::get('tpl')->draw('view_topics'); 
+                }
+            }else{
+                    $topics = $this->allModel->GetFormTopic();
+                    if($topics>0)
+                    {
+                                        System::Get('tpl')->assign('topics',$topics);
+                                        System::get('tpl')->draw('header-admin');
+                                        System::get('tpl')->draw('view_topics'); 
+                    }else{
+                                        System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                        System::get('tpl')->draw('header-admin');
+                                        System::get('tpl')->draw('error'); 
+
+                    }  
+            }
+        } 
+        
    /**
-    * delete image from database and folder 
-    * 
-    * 
-    */   
+    * delete topic from topic table --database--  
+    * and
+    * delete image from upload table --database--
+    * and
+    * delete image from  server  
+    */ 
+        
+   public function deleteTopic()
+           {
+           $topic_id=(int)$_GET['topic_id']; // id of Topic
+           
+           if(!empty($topic_id) && (int)$topic_id >0 )
+               {
+                            $tobic_table      = 'topic';  // name of  --Topic-- table delete from  to use in SQL Query
+                            $upload_table     = 'upload';  // name of --Upload-- table delete from  to use in SQL Query
+                            $topic_col        = 'topic_id';  // name of --Topic-- table colmun to use in SQL Query 
+                            $deleteFromServer = $this->allModel->getByElementFromTopic($topic_id,$topic_col); // get id of image will delete 
+                            $img_id           = $deleteFromServer['upload_id']; //  id of image will delete 
+                            $upload_col       = 'upload_id'; // name of --Upload-- table colmun to use in SQL Query
+                        if(!empty($deleteFromServer ))
+                            {
+                                $deleteFromServer = $this->allModel->getByElementFromUpload($img_id,$upload_col);
+                                $path             = "template/".$deleteFromServer['url']; // path of file you want delete 
+                                unlink($path);   //to delete from server folder 
+                                $deleteTopic      = $this->allModel->Delete($tobic_table,$topic_col,$topic_id);  //to delete --Topic-- from database
+                                $deleteFormDB     = $this->allModel->Delete($upload_table,$upload_col,$img_id);  //to delete --Image-- from database
+                                
+                                if($deleteTopic>0&&$deleteFormDB>0&&$deleteFromServer>0)
+                                {
+                                 System::get('tpl')->draw('header-admin');
+                                 System::get('tpl')->assign('message','تم حذف  الملف بنجاح');
+                                 System::get('tpl')->draw('success');   
+                                }
+                            }else{
+                                   System::get('tpl')->draw('header-admin');
+                                   System::get('tpl')->assign('message','رقم غير صحيح');
+                                   System::get('tpl')->draw('error');  
+                                   }
+                }else{
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->assign('message','رقم غير صحيح');
+                        System::get('tpl')->draw('error'); 
+                     }
+                
+            }
+   /**
+    * delete image from upload table --database--
+    * and
+    * delete image from  server  
+    */ 
+        
    public function deletePhoto()
            {
            $id=(int)$_GET['img_id']; // id of img
@@ -175,10 +362,10 @@ class allController
                {
                             $table = 'upload';  // name of table delete from  to use in SQL Query
                             $col='upload_id';  // name of colmun to use in SQL Query 
-                            $deleteFromServer = $this->allModel->Get_By_Id($id,$col); 
+                            $deleteFromServer = $this->allModel->getByElementFromUpload($id,$col); 
                         if(!empty($deleteFromServer ))
                             {
-                                $deleteFromServer = $this->allModel->Get_By_Id($id,$col);
+                                $deleteFromServer = $this->allModel->getByElementFromUpload($id,$col);
                                 $path= "template/".$deleteFromServer['url']; // path of file you want delete 
                                 unlink($path);   //to delete from server folder 
                                 $deleteFormDB = $this->allModel->Delete($table,$col,$id);  //to delete from database

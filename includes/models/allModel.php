@@ -49,19 +49,36 @@ class allModel
             
         
     }
+    
+    
     /**
-     * get for upload table 
+     * get form ---Upload--- table 
      * @param type $extra add any SQL query 
      * @return type
      */
-    public function GetForUpload($extra='')
-            
+    public function GetFormUpload($extra='')
     {
         $info = array();
         System::get('db')->Execute("SELECT * FROM `upload`{$extra} ");
         if(System::get('db')->AffectedRows()>0)
                 $info = System::get ('db')->GetRows();
         
+            return $info;
+    }
+    
+    
+    /**
+     * get form ---Topic---- table 
+     * @param type $extra add any SQL query 
+     * @return type
+     */
+    public function GetFormTopic($extra='')
+    {
+        $info = array();
+        System::get('db')->Execute("SELECT topic.*,upload.file_name,upload.url FROM"
+                . " topic LEFT JOIN upload ON topic.`upload_id`=upload.`upload_id` {$extra} ");
+        if(System::get('db')->AffectedRows()>0)
+                $info = System::get ('db')->GetRows();
         
             return $info;
     }
@@ -96,12 +113,30 @@ class allModel
             return $visits;
         
     }
-
-    public function Get_By_Id($id,$col)
+/**
+ * get by element from ----Upload---- table
+ * @param type $element 
+ * @param type $col 
+ * @return type
+ */
+    public function getByElementFromUpload($element,$col)
     {
-        $id = (int)$id;
         $info = array ();
-        $info = $this->GetForUpload("WHERE `$col` = $id");
+        $info = $this->GetFormUpload("WHERE `$col` = '$element'");
+            return @$info[0];
+    }
+    
+    
+/**
+ * get by element from ----Topic---- table
+ * @param type $element 
+ * @param type $col 
+ * @return type
+ */
+    public function getByElementFromTopic($element,$col)
+    {
+        $info = array ();
+        $info = $this->GetFormTopic("WHERE `$col` = '$element'");
             return @$info[0];
     }
     
@@ -119,8 +154,6 @@ class allModel
         
         //if (isset($article[0]))
             return $visits;
-            
-    
     }
    
     
@@ -196,11 +229,24 @@ class allModel
      * 
      * update articles with id
      */
-    public function Update($id,$data)
+    public function UpdateForUpload($id,$data)
             
     {
         $id = (int)$id;
-        if (System::get('db')->Update('visitrequest',$data,"WHERE `id`=$id"))
+        if (System::get('db')->update('upload',$data,"WHERE `upload_id`='$id'"))
+            return TRUE;
+
+           return FALSE;
+    }
+    /*
+     * 
+     * update articles with id
+     */
+    public function UpdateForTopic($id,$data)
+            
+    {
+        $id = (int)$id;
+        if (System::get('db')->update('topic',$data,"WHERE `topic_id`='17'"))
             return TRUE;
 
            return FALSE;
