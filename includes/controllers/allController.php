@@ -213,7 +213,7 @@ class allController
                     }
            }
 
-   /**
+  /**
     *  Update topic to topic table
     *  & 
     * Add photo to upload table 
@@ -221,89 +221,71 @@ class allController
            
    public function updateTopic()
            {
-                $topic_id = (int)$_GET['topic_id']; // int id of Topic 
                 if(isset($_POST['update_topic']))
                     {
-                        $topic_id = (int)$_GET['topic_id']; 
+                         $topic_id      = (int)$_POST['topic_id']; 
                          $date          = date("Y-m-d-h-i-s");  // now time and date 
-                         $section       = "topic_img"; // set section type 
                          $topic_title   = $_POST['topic_title']; // topic title 
-                         $topic_desc    = $_POST['topic_desc']; //topic Description 
+                         $topic_desc    = $_POST['topic_desc']; //topic mini Description 
                          $topic         = $_POST['topic']; //textarea text 
                          $type          = $_POST['topic_type']; //add type of topic if event or media or press
 
-                         if(!empty($_FILES['image_up']['name']))
-                         {
-                             $topic_id = (int)$_GET['topic_id']; 
-                               $info          = pathinfo($_FILES['image_up']['name']); // file info using POST name "image_up"
-                               $ext           = $info['extension']; // get file extension
-                               $image_name    = "topicImg"; // rename uploaded file as ('topicImg'.$date) staic name + date
-                               $filename      = $image_name.$date.'.'.$ext; // Create name for uploaded file +extension to insert in database
-                               $filenameonly  = $image_name.$date; // file name with date 
-                               $target        = 'template/images/'.$filename; // path of server folder 
-                               $url           = 'images/'.$filename; // create url to use in href because raintpl add (template) before direction
-                                //array to store in database
-                                $imgData=array(
-                                        'file_name'=>$filenameonly,
-                                        'file_ext' =>$ext,
-                                        'url'      =>$url,
-                                        'date'     =>$date,
-                                        'section'  =>$section
+                            $topicData  = 
+                                    array
+                                        (
+                                            'title'     =>$topic_title,
+                                            'mini_desc' =>$topic_desc,
+                                            'topic'     =>$topic,
+                                            'type'      =>$type,
+                                            'date'      =>$date,
+                                            //'upload_id' =>$upload_id
                                         );
-                            $col="file_name";
-                            $imgInfo=$this->allModel->getByElementFromUpload($filenameonly,$col);
-                            $upload_id=$imgInfo['upload_id'];
-                            $this->allModel->UpdateForUpload($upload_id,$imgData);
-                                $topicData=array(
-                                        'title'     =>$topic_title,
-                                        'mini_desc' =>$topic_desc,
-                                        'topic'     =>$topic,
-                                        'type'      =>$type,
-                                        'date'      =>$date,
-                                        'upload_id' =>$upload_id
-                                        );
-                            $this->allModel->UpdateForTopic($topic_id, $topicData);
-                            move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
-                            System::get('tpl')->draw('header-admin');
-                            System::get('tpl')->assign('message','تم اضافة  الموضوع بنجاح');
-                            System::get('tpl')->draw('success');
-                            
-                         }elseif(empty($_FILES['image_up']['name']))
-                         {
-                                    $topic_id = (int)$_GET['topic_id']; 
-                                        $topicData=array(
-                                        'title'     =>$topic_title,
-                                        'mini_desc' =>$topic_desc,
-                                        'topic'     =>$topic,
-                                        'type'      =>$type
-                                        );
-                            $topic=$this->allModel->UpdateForTopic( $topic_id, $topicData);
-                            if($topic)
+                            $updated = $this->allModel->UpdateForTopic($topic_id,$topicData);
+                            if($updated)
                                 {
-                            System::get('tpl')->draw('header-admin');
-                            System::get('tpl')->assign('message','تم تعديل  الموضوع بنجاح');
-                            System::get('tpl')->draw('success'); 
-                            }else{
-                               echo "error"; 
-                            }
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->assign('message','تم تعديل الموضوع بنجاح');
+                                    System::get('tpl')->draw('success');
+                                }else
+                                    {
+                                    System::Get('tpl')->draw('header-admin');
+                                    System::get('tpl')->assign('message','فشل تعديل الموضوع برجاء اعاده المحاولة');
+                                    System::Get('tpl')->draw('error');
+                                    }
 
-                         }else
-                            {
-   //                              $info['extension']=NULL;
-                                   System::Get('tpl')->draw('header-admin');
-                                   System::get('tpl')->assign('message','لا توجد صورة برجاء  اختيار صورة');
-                                   System::Get('tpl')->draw('error');   
-                            }
+
                     }else
-                    { // if user not press at ['update_topic'] button
-                        $topic_col= 'topic_id';
-                        $topic = $this->allModel->getByElementFromTopic($topic_id,$topic_col); // get topic by id 
-                        System::get('tpl')->assign($topic);
-                        System::Get('tpl')->draw('header-admin');
-                        System::Get('tpl')->draw('update_topic');
-                    }
+                        { // if user not press at ['update_topic'] button
+                            
+                            $topic_id = 0; // int id of Topic 
+                            
+                        if(isset($_GET['topic_id']) && (int)$_GET['topic_id'] > 0) // if there are id in URL
+                            {
+
+                                $topic_id = (int)$_GET['topic_id']; // int id of Topic 
+                                $topic_col= 'topic_id';
+                                $topic = $this->allModel->getByElementFromTopic($topic_id,$topic_col); // get topic by id 
+                                if (count($topic) > 0)
+                                    { //topic found
+                                            System::get('tpl')->assign($topic);
+                                            System::Get('tpl')->draw('header-admin');
+                                            System::Get('tpl')->draw('update_topic'); 
+                                    }else
+                                        {      //topic not found // or wrong topic_id not found in database 
+                                            System::Get('tpl')->draw('header-admin');
+                                            System::get('tpl')->assign('message','هذا الموضوع غير موجود بقاعده البيانات');
+                                            System::Get('tpl')->draw('error');                                    
+                                        }
+                            }  else
+                                {
+                                            System::Get('tpl')->draw('header-admin');
+                                            System::get('tpl')->assign('message','موضوع خطأ');
+                                            System::Get('tpl')->draw('error'); 
+                                }
+                        }
            }
            
+              
         
     /**
      *
@@ -366,12 +348,10 @@ class allController
            {
            $topic_id=(int)$_GET['topic_id']; // id of Topic
            
-           if(!empty($topic_id) && (int)$topic_id >0 )
+           if(!empty($topic_id) && (int)$topic_id > 0 )
                {
-                            $tobic_table      = 'topic';  // name of  --Topic-- table delete from  to use in SQL Query
-                            $upload_table     = 'upload';  // name of --Upload-- table delete from  to use in SQL Query
                             $topic_col        = 'topic_id';  // name of --Topic-- table colmun to use in SQL Query 
-                            $deleteFromServer = $this->allModel->getByElementFromTopic($topic_id,$topic_col); // get id of image will delete 
+                            $deleteFromServer = $this->allModel->getByElementFromTopic($topic_id,$topic_col); // store in $deleteFromServer row of the same id that pressed in order to get upload_id of image will delete 
                             $img_id           = $deleteFromServer['upload_id']; //  id of image will delete 
                             $upload_col       = 'upload_id'; // name of --Upload-- table colmun to use in SQL Query
                         if(!empty($deleteFromServer ))
@@ -379,20 +359,24 @@ class allController
                                 $deleteFromServer = $this->allModel->getByElementFromUpload($img_id,$upload_col);
                                 $path             = "template/".$deleteFromServer['url']; // path of file you want delete 
                                 unlink($path);   //to delete from server folder 
+                                
+                                $tobic_table      = 'topic';  // name of  --Topic-- table delete from  to use in SQL Query
                                 $deleteTopic      = $this->allModel->Delete($tobic_table,$topic_col,$topic_id);  //to delete --Topic-- from database
+                                $upload_table     = 'upload';  // name of --Upload-- table delete from  to use in SQL Query
                                 $deleteFormDB     = $this->allModel->Delete($upload_table,$upload_col,$img_id);  //to delete --Image-- from database
                                 
-                                if($deleteTopic>0&&$deleteFormDB>0&&$deleteFromServer>0)
+                                if($deleteTopic >0 && $deleteFormDB > 0 && $deleteFromServer > 0)
                                 {
-                                 System::get('tpl')->draw('header-admin');
-                                 System::get('tpl')->assign('message','تم حذف  الملف بنجاح');
-                                 System::get('tpl')->draw('success');   
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->assign('message','تم حذف  الملف بنجاح');
+                                    System::get('tpl')->draw('success');   
                                 }
-                            }else{
+                            }else
+                                {
                                    System::get('tpl')->draw('header-admin');
                                    System::get('tpl')->assign('message','رقم غير صحيح');
                                    System::get('tpl')->draw('error');  
-                                   }
+                                }
                 }else{
                         System::get('tpl')->draw('header-admin');
                         System::get('tpl')->assign('message','رقم غير صحيح');
@@ -401,6 +385,7 @@ class allController
                 
             }
 
+            
    public function getTrainingPackages()
    {
 
@@ -426,162 +411,7 @@ class allController
    }
    
 
-   public function upload()
-   {
 
-
-        if (isset($_POST['import']) )
-            {
-            
-                $fname      = $_FILES['file']['name'];
-                $chk_ext    = explode(".", $fname);
-                
-                if(strtolower(end($chk_ext))=="csv")
-                    {
-                    
-                    
-                        $file   = $_FILES['file']['tmp_name'];
-                //        echo $file;
-                        $handle = fopen($file,"r") ;
-                //        echo $file;
-                //        die();
-                        while(($data = fgetcsv($handle,0,",")) !== FALSE)
-                                {
-                           $dslnumber       = $data['0']; // $dslnumber
-                           $exchange        = $data['1']; // $exchange
-                           $mobile          = $data['2']; // $mobile
-                           $leadername      = $data['3']; // $leadername
-                           $leadermobile    = $data['4']; // $leadermobile
-                           $date            = $data['5']; // $leadermobile
-                           $user_id         = $data['6']; // $leadermobile
-
-                           $data = array(
-                                    'dslnumber'      =>  $dslnumber,
-                                    'exchange'       =>  $exchange,
-                                    'mobile'         =>  $mobile,
-                                    'leadername'     =>  $leadername,
-                                    'leadermobile'   =>  $leadermobile,
-                                    'date'           =>  $date,
-                                    'user_id'        =>  $user_id
-                                            );
-                            
-                                    if(   
-
-                                             //check if there are any row has a cell empty or no
-                                             $dslnumber       == "" &&// $dslnumber
-                                             $exchange        == "" &&//exchange
-                                             $mobile          == "" &&
-                                             $leadername      == "" &&
-                                             $leadermobile    == "" && // $leadermobile
-                                             $date            == "" && // $leadermobile
-                                             $user_id         == ""  // $leadermobile
-                                       )
-                                        {
-//                                                 System::get('tpl')->assign('message','Your adding faild');
-//                                                 System::get('tpl')->assign('username',$_SESSION['username']);
-//                                                 System::get('tpl')->draw('error');
-                                                 //die();
-                                        }
-                                        else 
-                                            {
-                                                 $insert = $this->visitRequestModel->insertByUpload($data);
-                                            }       
-                             } // end of while loop
-                        
-                                if($insert)
-                                    { // if inserted in database 
-                                        fclose($handle);
-                                        System::get('tpl')->assign('message','Visit has been added');
-                                        System::get('tpl')->assign('username',$_SESSION['username']);
-                                        System::get('tpl')->draw('success');
-                                        //System::RedirectTo('vrmessage-admin.php');// redirect to vrmessage page to avoid duplication visit
-
-                                    }else
-                                        { // if not inserted in database
-                                        System::get('tpl')->assign('message','Your adding faild');
-                                        System::get('tpl')->assign('username',$_SESSION['username']);
-                                        System::get('tpl')->draw('error'); 
-                                        }
-                               } else { // if file not csv
-                                        System::get('tpl')->assign('message','Invalid file');
-                                        System::get('tpl')->assign('username',$_SESSION['username']);
-                                        System::get('tpl')->draw('error');
-                                      }
-     }else
-        { // else of -> if user didn't press import
-               System::get('tpl')->assign('title','Upload visits');
-               System::get('tpl')->assign('username',$_SESSION['username']);
-               System::get('tpl')->draw('uploadform');
-        
-            
-        }
-       
-   }
-
-   
-   public function addOneVisit()
-   {
-       if (isset($_POST['addOneVisit']))
-           
-           {
-          
-           //store 
-           
-           
-           $dslnumber       = $_POST['dslnumber'];          // dslnumber
-           $exchange        = $_POST['exchange'];           // exchange
-           $mobile          = (int)$_POST['mobile'];        // mobile
-           $leadername      = $_POST['leadername'];         // leader name
-           $leadermobile    = (int)$_POST['leadermobile'];  // leader mobile
-           $date            = $_POST['date'];               // date
-           $user_id         = (int)$_POST['user_id'];       // user_id
-           
-          
-           //validition
-           
-            
-           // data array
-           $data = array
-               (
-               'dslnumber'      =>  $dslnumber,
-               'exchange'       =>  $exchange,
-               'mobile'         =>  $mobile,
-               'leadername'     =>  $leadername,
-               'leadermobile'   =>  $leadermobile,
-               'date'           =>  $date,
-               'user_id'        =>  $user_id
-
-               );
-           
-           
-           // insert (add)
-                    if($this->visitRequestModel->addOneVisit($data))
-                    {
-                    System::get('tpl')->assign('message','Visit has been added');
-                    System::get('tpl')->draw('success');
-                    System::RedirectTo('vrmessage-admin.php');// redirect to vrmessage page to avoid duplication visit
-
-                    }  
-                    else {
-                                 System::get('tpl')->assign('message','Your adding faild');
-                                 System::get('tpl')->draw('error');    
-                         }
-                           
-           }   
-           else
-               {
-               
-      
-               //template => form to add
-               $users = $this->usersModel->get();
-               System::get('tpl')->assign('title','Add One Visit');
-               System::get('tpl')->assign('username',$_SESSION['username']);
-               System::get('tpl')->assign('users',$users);
-               System::get('tpl')->draw('addonevisit');
-               }
-       
-   }
-    
     public function Update()
    {
         if(isset($_POST['update']))
@@ -687,6 +517,7 @@ class allController
 
    }
    
+   
    public function deleteMultiple()
    {
        
@@ -775,11 +606,6 @@ class allController
             }
         }
 
-        
-
-
-        
-        
 /**
  * multi update for site info page
  */

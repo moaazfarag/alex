@@ -23,10 +23,6 @@
                                     <input name="topic_desc" type="text" class="form-control" id="topic_meta" placeholder=" نبذة مختصرة لا تزيد عن 255 حرف " value="{$mini_desc}">
                                 </div>
                                 <div class="form-group">
-                                    <label  for="topic_img">صوره رئيسية</label>
-                                    <input name="image_up" type="file" id="topic_img">
-                                </div>
-                                <div class="form-group">
                                     <label for="topic_editor">الموضوع</label>
                                     <textarea name="topic" rows="5" class="form-control" id="topic_editor" placeholder="محتوي موضوعك">{$topic}</textarea>
                                 </div>
@@ -41,7 +37,7 @@
                                         <option value="proud">فخر  الاكاديمية</option>
                                     </select> 
                                 </div>
-
+                                <input type="hidden" name="topic_id" value="{$topic_id}" />
                                 <button name="update_topic" type="submit" class="btn btn-default">تعديل الموضوع</button>
                             </form>
 
