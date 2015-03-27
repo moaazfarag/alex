@@ -78,7 +78,7 @@ class allModel
         System::get('db')->Execute("SELECT topic.*,upload.file_name,upload.url FROM"
                 . " topic LEFT JOIN upload ON topic.`upload_id`=upload.`upload_id` {$extra} ");
         if(System::get('db')->AffectedRows()>0)
-                $info = System::get ('db')->GetRows();
+             $info = System::get ('db')->GetRows();
         
             return $info;
     }
@@ -199,7 +199,7 @@ class allModel
     }
     /*
      * 
-     * insert ulpoaded pic returne true if pic inserted
+     * insert ulpoaded pic/file returne true if FILE of pic inserted
      */ 
     public function addNewFile($imgData)
             
@@ -246,7 +246,7 @@ class allModel
             
     {
         $id = (int)$id;
-        if (System::get('db')->update('topic',$data,"WHERE `topic_id`='17'"))
+        if (System::get('db')->update('topic',$data,"WHERE `topic_id`='$id'"))
             return TRUE;
 
            return FALSE;
