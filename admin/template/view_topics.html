@@ -36,21 +36,17 @@
                                     <td class="">عنوان الموضوع</td>
                                     <td class="">صوره</td>
                                     <td class="">الكاتب</td>
-                                    <td class="">عدد المشاهدات</td>
-                                    <td class="">عدد التعليقات</td>
                                     <td class="text-center">التحكم</td>
                                 </tr>
-                                {loop="$topics"}
+                                {loop="topics"}
                                 <tr class="text-center">
                                     <td class="english">{$value.topic_id}</td>
                                     <td><a href="update-topic.php?topic_id={$value.topic_id}" class="bold">{$value.title}</a></td>
                                     <td><img src="{$value.url}" alt="{$value.file_name}"></td>
-                                    <td><a href="#">Hosam Zewain</a></td>
-                                    <td class="english">550</td>
-                                    <td class="english">12</td>
+                                    <td><a href="#">Anas</a></td>
                                     <td class="text-center">
-                                        <a href="update-topic.php?topic_id={$value.topic_id}" title="view" class="glyphicon glyphicon-zoom-in"></a>
-                                        <a href="delete-topic.php?topic_id={$value.topic_id}" title="delete" class="glyphicon glyphicon-remove"></a>
+                                        <a href="update-topic.php?topic_id={$value.topic_id}" title="تعديل" class="glyphicon glyphicon-zoom-in"></a>
+                                        <a href="delete-topic.php?topic_id={$value.topic_id}" title="حذف" class="glyphicon glyphicon-remove"></a>
                                     </td>
                                 </tr>
                                 {/loop}
