@@ -240,8 +240,13 @@ class allController
                                             'date'      =>$date,
                                             //'upload_id' =>$upload_id
                                         );
+<<<<<<< HEAD
+                            $topic=$this->allModel->UpdateForTopic($topic_id,$topicData);
+                            if($topic)
+=======
                             $updated = $this->allModel->UpdateForTopic($topic_id,$topicData);
                             if($updated)
+>>>>>>> origin/master
                                 {
                                     System::get('tpl')->draw('header-admin');
                                     System::get('tpl')->assign('message','تم تعديل الموضوع بنجاح');
