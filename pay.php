@@ -11,13 +11,18 @@
 
  */
 
-
-
 require_once('globals.php');
-
-//is_admin();
-//System::get('tpl')->assign('username',$_SESSION['username']);
-System::Get('tpl')->draw('pay');
+require_once (CONTROLLERS.'allController.php');
 
 
+/*
+ * objects from Visit Request Model and users Model
+ * 
+ */
+$allmod     = new allModel();
+/*
+ * controller instance
+ */
+$controller     = new allController ($allmod);
 
+$controller->navbar();

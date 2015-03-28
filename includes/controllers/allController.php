@@ -621,7 +621,7 @@ public function updateMultiple()
                         $ta = $_POST['2'];
                         $da = $_POST['about'];
                         $tv = $_POST['3'];
-                        $dv = $_POST['vision'];
+                        $dv = $_POST['vission'];
                         $tm = $_POST['4'];
                         $dm= $_POST['message'];
                         $ts = $_POST['5'];
@@ -650,7 +650,7 @@ public function updateMultiple()
  * 
  */  
 public function siteInfoView()
-        {
+{
     $info = $this->allModel->getSiteInfo();
     if($info>0)
     {
@@ -666,5 +666,114 @@ public function siteInfoView()
     }
  
 } 
+
+
+// ------------------------------------------ view for visitors -----------------------------------------------------
+
+/**
+ * navbar of menu bar -> الرئيسية والاهداف و الرؤية وركن الشهادات وطرق الدفع 
+ * 
+ */
+public function navbar ()
+        {
+//            $_SERVER
+              $path= $_SERVER['REQUEST_URI'];
+              if ($path == "/debono-git/goals.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'goal' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }
+                
+                elseif($path == "/alex/about-us.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'about' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }
+                elseif($path == "/alex/vission.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'vission' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }
+                elseif($path == "/alex/message.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'message' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }
+                elseif($path == "/alex/services.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'services' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('services');
+                }
+                elseif($path == "/alex/pay.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'pay' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }else
+                    {// send message
+                    
+                    if (isset($_POST['send']))
+                        
+                        
+                        {
+                    	// Email configuration
+                            $mail_to    = 'm.hafez@clickfordata.net';
+                            $subject    = 'New Message Depono Website';
+                            
+                        // Receive info
+                            $name       = $_POST['name'];
+                            $email      = $_POST['email'];
+                            $address    = $_POST['address'];
+                            $message    = $_POST['your-message'];
+
+                            $headers = "Name : ".$name."\n";
+                            $headers = "Email : ".$email."\n";
+                            $message = "Feed back : ".$feedback."\n";
+                        
+                        
+                        }
+	
+
+
+
+                        $headers = "Name : ".$name."\n";
+                        $headers = "Email : ".$email."\n";
+                        $message = "Feed back : ".$feedback."\n";
+                        
+                        if(mail($mail_to,$subject,$message,$headers,$his_name)){
+                                echo "Thank You";	
+                        }else{
+                                echo "Email Failed";	
+                        }
+                    
+                    }
+                
+                
+                    
+        }
+
 
 }

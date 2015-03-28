@@ -33,6 +33,13 @@ class allModel
             
         
     }
+    
+    /**
+     * site info like - > goals, about us,اهداف الاكاديمية عن الاكاديمية
+     * @param type $extra
+     * @return type
+     * 
+     */
     public function getSiteInfo($extra='')
             
     {
@@ -298,23 +305,26 @@ class allModel
                 }
                
     }
+    
+    
+    //------------------------------------view modles-----------------------
+    
+        public function navbar($extra='')
+            
+    {
+            
+            
+        $info = array();
+        $info=$this->getSiteInfo($extra);
+                
+
         
-//        public function getCount($id)
-//            
-//    {
-//            
-//       
-//        System::get('db')->Execute("SELECT COUNT(*) FROM `visitrequest` WHERE `user_id` = '$id' ");
-//        $count = System::get ('db')->GetRows(); 
-//        return $count[0]; 
-//        
-//
-//    }
-/**
- * 
- * @param type $id of record 
- * @param type $col which colmun you want use with WHERE 
- * @return type
- */
+        
+            return $info;
+            
+            
+        
+    }
+        
     
 }
