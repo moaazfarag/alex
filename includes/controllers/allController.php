@@ -164,7 +164,6 @@ class allController
                          $section       = "topic_img"; // set section type 
                          $topic_title   = $_POST['topic_title']; // topic title 
                          $topic_desc    = $_POST['topic_desc']; //topic Description 
-                         $topic         = $_POST['topic']; //textarea text 
                          $type          = $_POST['topic_type']; //add type of topic if event or media or press
 
                          
@@ -188,7 +187,6 @@ class allController
                                         (
                                             'title'     => $topic_title,
                                             'mini_desc' => $topic_desc,
-                                            'topic'     => $topic,
                                             'type'      => $type,
                                             'date'      => $date,
                                             'upload_id' => $upload_id
@@ -196,7 +194,7 @@ class allController
                             $this->allModel->addNewTopic($topicData);
                             move_uploaded_file($_FILES['image_up']['tmp_name'], $target);
                             System::get('tpl')->draw('header-admin');
-                            System::get('tpl')->assign('message','تم اضافة  الموضوع بنجاح');
+                            System::get('tpl')->assign('message','تم اضافة  الشهادة بنجاح');
                             System::get('tpl')->draw('success');
                             
                          }else
@@ -209,7 +207,14 @@ class allController
                     }else
                     { // if user not press at ['add_topic'] button
                         System::Get('tpl')->draw('header-admin');
-                        System::Get('tpl')->draw('add_topic');
+//                        echo $_SERVER['REQUEST_URI'] ;
+                         if($_SERVER['REQUEST_URI'] == "/alex/admin/add-cer.php")
+                        {
+                        System::Get('tpl')->draw('add_cer');
+                        }
+                        else {
+                                System::Get('tpl')->draw('add_topic');
+                        }
                     }
            }
 
@@ -297,13 +302,13 @@ class allController
         
    public function viewAllTopic()
         {
-
+            
             if(isset($_POST['view_type'])) // preview button -> ['view_type']
             {
                 $selected_type = $_POST['topic_type']; // select name
                 if($selected_type == "all")
                 {
-                    $topics = $this->allModel->GetFormTopic();
+                    $topics = $this->allModel->GetFormTopic("WHERE `type`!='cer'");
                     System::Get('tpl')->assign('topics',$topics);
                     System::get('tpl')->draw('header-admin');
                     System::get('tpl')->draw('view_topics'); 
@@ -322,16 +327,25 @@ class allController
             }
             else
             {
-                    $topics = $this->allModel->GetFormTopic();
-                    if($topics > 0)
+                
+                $topics = $this->allModel->GetFormTopic("WHERE `type`!='cer'");
+                $url=$_SERVER['REQUEST_URI'];
+                if($_SERVER['REQUEST_URI'] == "/alex/admin/view-cers.php")
+                {
+                    $topics = $this->allModel->GetFormTopic("WHERE `type`='cer'");
+                    System::Get('tpl')->assign('topics',$topics);
+                    System::get('tpl')->draw('header-admin');
+                    System::get('tpl')->draw('view_cers'); 
+                    
+                }elseif($topics > 0)
                     {
-                                        System::Get('tpl')->assign('topics',$topics);
-                                        System::get('tpl')->draw('header-admin');
-                                        System::get('tpl')->draw('view_topics'); 
+                        System::Get('tpl')->assign('topics',$topics);
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->draw('view_topics'); 
                     }else{
-                                        System::get('tpl')->assign('message','حدث شئ خطا :(');
-                                        System::get('tpl')->draw('header-admin');
-                                        System::get('tpl')->draw('error'); 
+                            System::get('tpl')->assign('message','حدث شئ خطا :(');
+                            System::get('tpl')->draw('header-admin');
+                            System::get('tpl')->draw('error'); 
 
                     }  
             }
@@ -621,7 +635,7 @@ public function updateMultiple()
                         $ta = $_POST['2'];
                         $da = $_POST['about'];
                         $tv = $_POST['3'];
-                        $dv = $_POST['vission'];
+                        $dv = $_POST['vision'];
                         $tm = $_POST['4'];
                         $dm= $_POST['message'];
                         $ts = $_POST['5'];
@@ -650,7 +664,7 @@ public function updateMultiple()
  * 
  */  
 public function siteInfoView()
-{
+        {
     $info = $this->allModel->getSiteInfo();
     if($info>0)
     {
@@ -666,114 +680,5 @@ public function siteInfoView()
     }
  
 } 
-
-
-// ------------------------------------------ view for visitors -----------------------------------------------------
-
-/**
- * navbar of menu bar -> الرئيسية والاهداف و الرؤية وركن الشهادات وطرق الدفع 
- * 
- */
-public function navbar ()
-        {
-//            $_SERVER
-              $path= $_SERVER['REQUEST_URI'];
-              if ($path == "/alex/goals.php")
-                
-                {
-                    $type = "WHERE `textarea_name` = 'goal' ";
-                    $navbar = $this->allModel->getSiteInfo($type);
-                    $navbar = $navbar[0];
-                    System::Get('tpl')->assign($navbar);
-                    System::Get('tpl')->draw('navbarpage');
-                }
-                
-                elseif($path == "/alex/about-us.php")
-                
-                {
-                    $type = "WHERE `textarea_name` = 'about' ";
-                    $navbar = $this->allModel->getSiteInfo($type);
-                    $navbar = $navbar[0];
-                    System::Get('tpl')->assign($navbar);
-                    System::Get('tpl')->draw('navbarpage');
-                }
-                elseif($path == "/alex/vission.php")
-                
-                {
-                    $type = "WHERE `textarea_name` = 'vission' ";
-                    $navbar = $this->allModel->getSiteInfo($type);
-                    $navbar = $navbar[0];
-                    System::Get('tpl')->assign($navbar);
-                    System::Get('tpl')->draw('navbarpage');
-                }
-                elseif($path == "/alex/message.php")
-                
-                {
-                    $type = "WHERE `textarea_name` = 'message' ";
-                    $navbar = $this->allModel->getSiteInfo($type);
-                    $navbar = $navbar[0];
-                    System::Get('tpl')->assign($navbar);
-                    System::Get('tpl')->draw('navbarpage');
-                }
-                elseif($path == "/alex/services.php")
-                
-                {
-                    $type = "WHERE `textarea_name` = 'services' ";
-                    $navbar = $this->allModel->getSiteInfo($type);
-                    $navbar = $navbar[0];
-                    System::Get('tpl')->assign($navbar);
-                    System::Get('tpl')->draw('services');
-                }
-                elseif($path == "/alex/pay.php")
-                
-                {
-                    $type = "WHERE `textarea_name` = 'pay' ";
-                    $navbar = $this->allModel->getSiteInfo($type);
-                    $navbar = $navbar[0];
-                    System::Get('tpl')->assign($navbar);
-                    System::Get('tpl')->draw('navbarpage');
-                }else
-                    {// send message
-                    
-                    if (isset($_POST['send']))
-                        
-                        
-                        {
-                    	// Email configuration
-                            $mail_to    = 'm.hafez@clickfordata.net';
-                            $subject    = 'New Message Depono Website';
-                            
-                        // Receive info
-                            $name       = $_POST['name'];
-                            $email      = $_POST['email'];
-                            $address    = $_POST['address'];
-                            $message    = $_POST['your-message'];
-
-                            $headers = "Name : ".$name."\n";
-                            $headers = "Email : ".$email."\n";
-                            $message = "Feed back : ".$feedback."\n";
-                        
-                        
-                        }
-	
-
-
-
-                        $headers = "Name : ".$name."\n";
-                        $headers = "Email : ".$email."\n";
-                        $message = "Feed back : ".$feedback."\n";
-                        
-                        if(mail($mail_to,$subject,$message,$headers,$his_name)){
-                                echo "Thank You";	
-                        }else{
-                                echo "Email Failed";	
-                        }
-                    
-                    }
-                
-                
-                    
-        }
-
 
 }
