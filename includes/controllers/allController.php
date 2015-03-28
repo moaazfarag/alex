@@ -678,7 +678,7 @@ public function navbar ()
         {
 //            $_SERVER
               $path= $_SERVER['REQUEST_URI'];
-              if ($path == "/debono-git/goals.php")
+              if ($path == "/alex/goals.php")
                 
                 {
                     $type = "WHERE `textarea_name` = 'goal' ";
