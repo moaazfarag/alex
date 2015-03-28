@@ -181,8 +181,8 @@ class allController
                                             );
                             $this->allModel->addNewFile($imgData); // insert data in database
                             
-                            //$col="file_name"; // column of tabel upload in database
-                            $imgInfo    = $this->allModel->getByElementFromUpload($filenameonly);
+                            $col="file_name"; // column of tabel upload in database
+                            $imgInfo    = $this->allModel->getByElementFromUpload($filenameonly,$col);
                             $upload_id  = $imgInfo['upload_id'];
                             $topicData  = array
                                         (
@@ -643,6 +643,12 @@ public function updateMultiple()
                       }
     }
     
+    
+    
+/**
+ * 
+ * 
+ */  
 public function siteInfoView()
         {
     $info = $this->allModel->getSiteInfo();
