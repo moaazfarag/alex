@@ -102,7 +102,7 @@ $(document).ready(function() {
 //<li role='presentation' class='divider'></li><li role='presentation' class='divider'></li>\n\
 //<li role='presentation'><a role='menuitem' tabindex='-1' href='#'>تسجيل خروج</a></li></ul>\n\
 //</div></div>");
-    $(".last-foot").append("<p class='english'>Designed And Developed by 3A International Group <a href='#'></a>    -   By : <a href='#'>3a Group </a> </p> ");
+    $(".last-foot").append("<p class='english'>الموقع من تصميم وبرمجة و تطوير مجموعة ثري ايه الدولية<a href='#'></a>    -   By : <a href='#'>3a Group </a> </p> ");
 
     if ($.cookie("href") == undefined) {
         x = "./template/css/light_style.css";
