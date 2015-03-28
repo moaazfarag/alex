@@ -681,4 +681,111 @@ public function siteInfoView()
  
 } 
 
+
+
+// ------------------------------------------ view for visitors -----------------------------------------------------
+
+/**
+ * navbar of menu bar -> الرئيسية والاهداف و الرؤية وركن الشهادات وطرق الدفع 
+ * 
+ */
+public function navbar ()
+        {
+//            $_SERVER
+              $path= $_SERVER['REQUEST_URI'];
+              if ($path == "/alex/goals.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'goal' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }
+                
+                elseif($path == "/alex/about-us.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'about' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }
+                elseif($path == "/alex/vission.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'vission' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }
+                elseif($path == "/alex/message.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'message' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }
+                elseif($path == "/alex/services.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'services' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('services');
+                }
+                elseif($path == "/alex/pay.php")
+                
+                {
+                    $type = "WHERE `textarea_name` = 'pay' ";
+                    $navbar = $this->allModel->getSiteInfo($type);
+                    $navbar = $navbar[0];
+                    System::Get('tpl')->assign($navbar);
+                    System::Get('tpl')->draw('navbarpage');
+                }else
+                    {// send message
+                    
+                    if (isset($_POST['send']))
+                        
+                        
+                        {
+                    	// Email configuration
+                            $mail_to    = 'm.hafez@clickfordata.net';
+                            $subject    = 'New Message Depono Website';
+                            
+                        // Receive info
+                            $name       = $_POST['name'];
+                            $email      = $_POST['email'];
+                            $address    = $_POST['address'];
+                            $message    = $_POST['your-message'];
+
+                            $headers = "اسم الراسل : ".$name."\n";
+                            $headers = "ايميل الراسل : ".$email."\n";
+                            $message = "الرسالة : ".$message."\n";
+                      
+                            if(mail($mail_to,$subject,$message,$headers))
+                            {
+                                
+                                
+                                    echo "تم ارسال الرساله بنجاح";	
+                            }else{
+                                    echo "فشل ارسال الرساله";	
+                            }
+                        } // end of send message 
+                        else 
+                            {
+                            
+                                System::Get('tpl')->draw('contact-us');
+                            }
+                
+                    
+                }// end of else to contact us
+
+        }
+
 }
