@@ -749,31 +749,27 @@ public function navbar ()
                             $address    = $_POST['address'];
                             $message    = $_POST['your-message'];
 
-                            $headers = "Name : ".$name."\n";
-                            $headers = "Email : ".$email."\n";
-                            $message = "Feed back : ".$feedback."\n";
-                        
-                        
-                        }
-	
-
-
-
-                        $headers = "Name : ".$name."\n";
-                        $headers = "Email : ".$email."\n";
-                        $message = "Feed back : ".$feedback."\n";
-                        
-                        if(mail($mail_to,$subject,$message,$headers,$his_name)){
-                                echo "Thank You";	
-                        }else{
-                                echo "Email Failed";	
-                        }
-                    
-                    }
-                
+                            $headers = "اسم الراسل : ".$name."\n";
+                            $headers = "ايميل الراسل : ".$email."\n";
+                            $message = "الرسالة : ".$message."\n";
+                      
+                            if(mail($mail_to,$subject,$message,$headers))
+                            {
+                                
+                                
+                                    echo "تم ارسال الرساله بنجاح";	
+                            }else{
+                                    echo "فشل ارسال الرساله";	
+                            }
+                        } // end of send message 
+                        else 
+                            {
+                            
+                                System::Get('tpl')->draw('contact-us');
+                            }
                 
                     
+                }// end of else to contact us
+
         }
-
-
 }
