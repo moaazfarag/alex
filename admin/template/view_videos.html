@@ -1,0 +1,74 @@
+
+
+            <!--Start Admin Panal MAin Content Right Block-->
+            <div class="main_container col-lg-9 col-md-8 col-sm-9 col-xs- pull-left">
+                <div class="row main_container_head">
+                    <h4><span class="glyphicon glyphicon-picture"></span>عرض الفيدوهات </h4>
+                </div>
+
+                <div class="row control_panal_body">
+                    <!--Start Admin Panal Section Description-->
+                    <p class="page_desc">يمكنك عرض الفيديوهات موقعك والتحكم فيهم من الحقول ادناه</p>
+                    <!--End Admin Panal Section Description-->
+
+                    <div class="admin_index">
+                        <!--Start Site Main Options and Data-->
+                        <div class="panel panel-default view_photo">
+                            <div class="panel-heading text-right h4">عرض كل الفيديوهات</div>
+
+                            <table class="table">
+                                <tr class="h4 text-center">
+                                    <td class="">#</td>
+                                    <td class="">الفيديو</td>
+                                    <td class="">صورة الفيديو </td>
+                                    <td class="">اسم الفيديو</td>
+                                    <td class="">وصف الفيديو</td>
+                                    <td class="text-center">التحكم</td>
+                                </tr>
+                                {loop="$videos"}
+                                <tr class="text-center">
+                                    <td class="english">{$value.upload_id}</td>
+                                    <td><iframe width="150" height="100" src="https://www.youtube.com/embed/{$value.file_ext}" frameborder="0" allowfullscreen></iframe></td>
+                                    <td><img src="http://img.youtube.com/vi/{$value.file_ext}/mqdefault.jpg" alt="عنوان عنوان عنوان عنوان عنوان عنوان " /></td>
+                                    <td>{$value.file_name}</td>
+                                    <td>{$value.file_desc}</td>
+                                    <td class="text-center">
+                                        <a href="delete-video.php?img_id={$value.upload_id}" title="delete" class="glyphicon glyphicon-remove"></a>
+                                    </td>
+                                </tr>
+                                   {/loop}
+
+                            </table>
+
+
+                            <nav class="english text-center ltr">
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                        </div>
+                        <!--End Site Main Options and Data-->
+                    </div>
+                </div>
+            </div>
+            <!--Start Admin Panal MAin Content Right Block-->
+        </div>
+        <!--End Admin Panal Main Body-->
+
+
+{include="footer-admin"}

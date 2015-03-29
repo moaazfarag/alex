@@ -103,6 +103,26 @@ class allController
 
                 }   
         } 
+    /**
+     * view all photos(video gallary) just that section == video for admin
+     * 
+     */
+           
+   public function viewAllVideos()
+        {
+            $videos = $this->allModel->GetFormUpload("WHERE `section`='video'"); // get file from DataBase 
+                if($videos>0)
+                {
+                                    System::Get('tpl')->assign('videos',$videos);
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('view_videos'); 
+                }else{
+                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('error'); 
+
+                }   
+        } 
            
    /**
     * delete image from upload table --database--
@@ -142,6 +162,37 @@ class allController
                         System::get('tpl')->assign('message','رقم غير صحيح');
                         System::get('tpl')->draw('error'); 
                      }
+                
+            }        
+           
+   /**
+    * delete image from upload table --database--
+    * and
+    * delete image from server folder
+    */ 
+        
+   public function deleteVideo()
+           {
+           $id =(int)$_GET['img_id']; // id of img
+           
+           if(!empty($id) && (int)$id >0 )
+               {
+                            $table  = 'upload';     // name of table delete from  to use in SQL Query
+                            $col    = 'upload_id';  // name of colmun to use in SQL Query 
+                                //$deleteFromServer = $this->allModel->getByElementFromUpload($id,$col);
+                                $deleteFormDB   = $this->allModel->Delete($table,$col,$id);  //to delete from database
+                                
+                            if($deleteFormDB)
+                                {
+                                 System::get('tpl')->draw('header-admin');
+                                 System::get('tpl')->assign('message','تم حذف  الفيديو بنجاح');
+                                 System::get('tpl')->draw('success');   
+                                }
+                            }else{
+                                   System::get('tpl')->draw('header-admin');
+                                   System::get('tpl')->assign('message','رقم غير صحيح');
+                                   System::get('tpl')->draw('error');  
+                                   }
                 
             }        
    /**
@@ -747,7 +798,47 @@ public function siteInfoView()
     }
  
 } 
-
+            /**
+             * get youtube link 
+             * @param type $url youtube URL 
+             * @return type youtube id to 
+             */
+    public function addVideo()
+            {
+              if(isset($_POST['add_video']))
+              {
+              $url = filter_input(INPUT_POST, 'url',FILTER_VALIDATE_URL);
+              $url_string = parse_url($url, PHP_URL_QUERY);
+              parse_str($url_string, $args);
+              $videoId=$args['v'];
+              $date=date("Y-m-d-h-i-s");
+                $data =
+                        array
+                            (
+                    'file_name' => filter_input(INPUT_POST, 'title').$date ,
+                    'file_desc' => filter_input(INPUT_POST, 'video_desc'),
+                    'file_ext'  => $videoId,
+                    'url'       => $url,
+                    'date'      => $date, // now time and date 
+                    'section'   => "video"
+                             );
+            
+            $add=$this->allModel->addNewFile($data);
+            if($add)
+                {
+                        System::get('tpl')->assign('message','تم اضافة الفيديو بنجاح ');
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->draw('success'); 
+                   }else{
+                        System::get('tpl')->assign('message','حدث شئ خطا :(');
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->draw('error');                       
+                   }
+          }else{
+          System::get('tpl')->draw('header-admin');
+          System::get('tpl')->draw('add_video');
+          }
+        }
 
 
 // ------------------------------------------ view for visitors -----------------------------------------------------
@@ -962,4 +1053,24 @@ public function photoGallary()
                 }   
         }
         
+    /**
+     * view all photos(video gallary) just that section == video for admin
+     * 
+     */
+           
+   public function viewAllVideosUser()
+        {
+            $videos = $this->allModel->GetFormUpload("WHERE `section`='video'"); // get file from DataBase 
+                if($videos>0)
+                {
+                                    System::Get('tpl')->assign('videos',$videos);
+//                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('videos'); 
+                }else{
+//                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+//                                    System::get('tpl')->draw('header-admin');
+//                                    System::get('tpl')->draw('error'); 
+
+                }   
+        } 
 }

@@ -1,0 +1,46 @@
+            <!--Start Admin Panal MAin Content Right Block-->
+            <div class="main_container col-lg-9 col-md-8 col-sm-9 col-xs- pull-left">
+                <div class="row main_container_head">
+                    <h4><span class="glyphicon glyphicon-film"></span>اضف فيديو    </h4>
+                </div>
+
+                <div class="row control_panal_body">
+                    <!--Start Admin Panal Section Description-->
+                    <p class="page_desc">تستطيع إضافة فيديو جديد    الى موقعك من خلال المحرر ادناه</p>
+                    <!--End Admin Panal Section Description-->
+                    <div class="admin_index">
+                        <!--Start Site Main Options and Data-->
+                        <div class="panel panel-default site_info">
+                            <div class="panel-heading text-right h4">إضافة فيديو جديد</div>
+
+                            <form action="add-video.php" method="post" enctype="multipart/form-data">
+
+                                <div class="form-group">
+                                    <label for="topic_meta">اسم  الفيديو</label>
+                                    <input name="title" type="text" class="form-control" id="topic_meta" placeholder=" ضع لينك الفيديو هنا " required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="topic_meta">وصف  الفيديو</label>
+                                    <input name="video_desc" type="text" class="form-control" id="topic_meta" placeholder=" ضع لينك الفيديو هنا ">
+                                </div>
+                                <div class="form-group">
+                                    <label for="topic_meta">لينك  الفيديو</label>
+                                    <input name="url" type="text" class="form-control" id="topic_meta" placeholder=" ضع لينك الفيديو هنا ">
+                                </div>
+                                <button name="add_video" type="submit" class="btn btn-default">إضافة الفيديو</button>
+                                <button type="reset" class="btn btn-default">مسح البيانات</button>
+                            </form>
+
+
+
+                        </div>
+                        <!--End Site Main Options and Data-->
+                    </div>
+                </div>
+            </div>
+            <!--Start Admin Panal MAin Content Right Block-->
+        </div>
+        <!--End Admin Panal Main Body-->
+
+
+{include="footer-admin"}
