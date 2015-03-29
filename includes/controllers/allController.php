@@ -941,6 +941,25 @@ public function certificates()
     
         }
  
-        
+/**
+ * 
+ * photo gallary
+ * 
+ */
+public function photoGallary()
+        {
+    
+            $photo = $this->allModel->GetFormUpload("WHERE `section`='img'"); // get file from DataBase 
+                if($photo>0)
+                {
+                                    System::Get('tpl')->assign('photo',$photo);
+                                    System::get('tpl')->draw('pic-lib'); 
+                }else{
+                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('error'); 
+
+                }   
+        }
         
 }
