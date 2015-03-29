@@ -993,6 +993,16 @@ public function GatewayMedia()
          * ابحث عن شهادتك
          * 
          */
+                /**
+         * البوابة الاعلامية
+         * 
+         */
+    public function survey()
+                    {
+                    System::get('tpl')->draw('survey')  ;
+                        
+                    }
+    
 public function certificates()
         
         {
