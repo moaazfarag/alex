@@ -1055,7 +1055,7 @@ public function photoGallary()
         
     /**
      * view all photos(video gallary) just that section == video for admin
-     * 
+     *  
      */
            
    public function viewAllVideosUser()
