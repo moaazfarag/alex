@@ -1,0 +1,51 @@
+            <!--Start Admin Panal MAin Content Right Block-->
+            <div class="main_container col-lg-9 col-md-8 col-sm-9 col-xs- pull-left">
+                <div class="row main_container_head">
+                    <h4><span class="glyphicon glyphicon-edit"></span>إضافة مركز تدريبي    </h4>
+                </div>
+
+                <div class="row control_panal_body">
+                    <!--Start Admin Panal Section Description-->
+                    <p class="page_desc">تستطيع إضافة مركز تدريبي جديد       الى موقعك من خلال المحرر ادناه</p>
+                    <!--End Admin Panal Section Description-->
+                    <div class="admin_index">
+                        <!--Start Site Main Options and Data-->
+                        <div class="panel panel-default site_info">
+                            <div class="panel-heading text-right h4">إضافة مركز    جديد</div>
+
+                            <form action="add-topic.php" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="topic_title">عنوان المركز التدريبي </label>
+                                    <input name="topic_title" type="text" class="form-control" id="topic_title" placeholder=" عنوان الحقيبة التدريبية">
+                                </div>
+                                <div class="form-group">
+                                    <label for="topic_meta">نبذة  مختصرة</label>
+                                    <input name="topic_desc" type="text" class="form-control" id="topic_meta" placeholder="     نبذة مختصرة   ">
+                                </div>
+                                <div class="form-group">
+                                    <label  for="topic_img">صورة  المركز</label>
+                                    <input name="image_up" type="file" id="topic_img">
+                                    <input name="topic_type" value="training_center" type="hidden" id="topic_img">
+                                </div>
+                                <div class="form-group">
+                                    <label for="topic_editor">الموضوع</label>
+                                    <textarea name="topic" rows="5" class="form-control" id="topic_editor" placeholder="محتوي موضوعك">
+                                    </textarea>
+                                </div>
+                                <button name="add_topic" type="submit" class="btn btn-default">إضاف المركز</button>
+                                <button type="reset" class="btn btn-default">مسح البيانات</button>
+                            </form>
+
+
+
+                        </div>
+                        <!--End Site Main Options and Data-->
+                    </div>
+                </div>
+            </div>
+            <!--Start Admin Panal MAin Content Right Block-->
+        </div>
+        <!--End Admin Panal Main Body-->
+
+
+{include="footer-admin"}

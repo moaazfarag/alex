@@ -164,6 +164,11 @@ class allController
                          $section       = "topic_img"; // set section type 
                          $topic_title   = $_POST['topic_title']; // topic title 
                          $topic_desc    = $_POST['topic_desc']; //topic Description 
+                         if(isset($_POST['topic'])){
+                           $topic        = $_POST['topic'];  
+                         }else{
+                             $topic="";
+                         } //topic  
                          $type          = $_POST['topic_type']; //add type of topic if event or media or press
 
                          
@@ -188,6 +193,7 @@ class allController
                                             'title'     => $topic_title,
                                             'mini_desc' => $topic_desc,
                                             'type'      => $type,
+                                            'topic'      => $topic,
                                             'date'      => $date,
                                             'upload_id' => $upload_id
                                         );
@@ -211,6 +217,10 @@ class allController
                          if($_SERVER['REQUEST_URI'] == "/alex/admin/add-cer.php")
                         {
                         System::Get('tpl')->draw('add_cer');
+                        }elseif($_SERVER['REQUEST_URI'] == "/alex/admin/add-training-packages.php"){
+                        System::Get('tpl')->draw('add_training_packages');
+                        }elseif($_SERVER['REQUEST_URI'] == "/alex/admin/add-training-center.php"){
+                        System::Get('tpl')->draw('add_training_center');
                         }
                         else {
                                 System::Get('tpl')->draw('add_topic');
@@ -308,6 +318,63 @@ class allController
                 $selected_type = $_POST['topic_type']; // select name
                 if($selected_type == "all")
                 {
+                    $topics = $this->allModel->GetFormTopic("WHERE `type`='event'&&`type`='press'&&`type`='media'&&`type`='proud'");
+                    System::Get('tpl')->assign('topics',$topics);
+                    System::get('tpl')->draw('header-admin');
+                    System::get('tpl')->draw('view_topics'); 
+                }elseif($selected_type === "event" || $selected_type === "press" || $selected_type === "media")
+                    {
+                        $topics = $this->allModel->GetFormTopic("WHERE topic.type = '$selected_type'");
+                        System::Get('tpl')->assign('topics',$topics);
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->draw('view_topics'); 
+                    }  else
+                        {
+                            System::get('tpl')->assign('message','  غير متاح  ');
+                            System::get('tpl')->draw('header-admin');
+                            System::get('tpl')->draw('error'); 
+                        }
+            }
+            else
+            {
+                
+                $topics = $this->allModel->GetFormTopic("WHERE `type`='event'&&`type`='press'&&`type`='media'&&`type`='proud'");
+                $url=$_SERVER['REQUEST_URI'];
+                if($_SERVER['REQUEST_URI'] == "/alex/admin/view-cers.php")
+                {
+                    $topics = $this->allModel->GetFormTopic("WHERE `type`='cer'");
+                    System::Get('tpl')->assign('topics',$topics);
+                    System::get('tpl')->draw('header-admin');
+                    System::get('tpl')->draw('view_cers'); 
+                    
+                }elseif($topics > 0)
+                    {
+                        System::Get('tpl')->assign('topics',$topics);
+                        System::get('tpl')->draw('header-admin');
+                        System::get('tpl')->draw('view_topics'); 
+                    }else{
+                            System::get('tpl')->assign('message','حدث شئ خطا :(');
+                            System::get('tpl')->draw('header-admin');
+                            System::get('tpl')->draw('error'); 
+
+                    }  
+            }
+        } 
+    /**
+     *
+     * view all trainingpackage 
+     * or 
+     * view by type  
+     */
+        
+   public function viewAllTraining()
+        {
+            
+            if(isset($_POST['view_type'])) // preview button -> ['view_type']
+            {
+                $selected_type = $_POST['topic_type']; // select name
+                if($selected_type == "all")
+                {
                     $topics = $this->allModel->GetFormTopic("WHERE `type`!='cer'");
                     System::Get('tpl')->assign('topics',$topics);
                     System::get('tpl')->draw('header-admin');
@@ -328,20 +395,20 @@ class allController
             else
             {
                 
-                $topics = $this->allModel->GetFormTopic("WHERE `type`!='cer'");
+                $topics = $this->allModel->GetFormTopic("WHERE `type`='training_package'");
                 $url=$_SERVER['REQUEST_URI'];
-                if($_SERVER['REQUEST_URI'] == "/alex/admin/view-cers.php")
+                if($_SERVER['REQUEST_URI'] == "/alex/admin/view-training-center.php")
                 {
-                    $topics = $this->allModel->GetFormTopic("WHERE `type`='cer'");
+                    $topics = $this->allModel->GetFormTopic("WHERE `type`='training_center'");
                     System::Get('tpl')->assign('topics',$topics);
                     System::get('tpl')->draw('header-admin');
-                    System::get('tpl')->draw('view_cers'); 
+                    System::get('tpl')->draw('view_center'); 
                     
                 }elseif($topics > 0)
                     {
                         System::Get('tpl')->assign('topics',$topics);
                         System::get('tpl')->draw('header-admin');
-                        System::get('tpl')->draw('view_topics'); 
+                        System::get('tpl')->draw('view_training'); 
                     }else{
                             System::get('tpl')->assign('message','حدث شئ خطا :(');
                             System::get('tpl')->draw('header-admin');
