@@ -753,7 +753,7 @@ public function siteInfoView()
 // ------------------------------------------ view for visitors -----------------------------------------------------
 
 /**
- * navbar of menu bar -> الرئيسية والاهداف و الرؤية وركن الشهادات وطرق الدفع 
+ * navbar of menu bar -> الرئيسية والاهداف و الرؤية وركن الشهادات وطرق الدفع و اتصل بنا
  * 
  */
 public function navbar ()
@@ -854,5 +854,48 @@ public function navbar ()
                 }// end of else to contact us
 
         }
+        
+        /**
+         * البوابة الاعلامية
+         * 
+         */
+public function GatewayMedia()
+        
+        {
+            $path= $_SERVER['REQUEST_URI'];
+            if ($path == "/alex/eventsAndConferences.php") 
+                {
+                    $topic = $this->allModel->GetFormTopic("WHERE `type`='event'");
+                     
+                    System::Get('tpl')->assign('name','فعاليات ومؤتمرات');
+                    System::Get('tpl')->assign('topic',$topic);
+                    System::get('tpl')->draw('eventsandconferences');     
+                }
+                elseif ($path == "/alex/pressProfile.php")
+                    {
+                        $topic = $this->allModel->GetFormTopic("WHERE `type`='press'");
+                        
+                        System::Get('tpl')->assign('name','الملف الصحفي');
+                        System::Get('tpl')->assign('topic',$topic);
+                        System::get('tpl')->draw('eventsandconferences');                    
+                    }                
+                elseif ($path == "/alex/mediaProfile.php")
+                    {
+                        $topic = $this->allModel->GetFormTopic("WHERE `type`='media'");
+                        
+                        System::Get('tpl')->assign('name','الملف الاعلامي');
+                        System::Get('tpl')->assign('topic',$topic);
+                        System::get('tpl')->draw('eventsandconferences');                    
+                    }                
+                elseif ($path == "/alex/prideTheAcademy.php")
+                    {
+                        $topic = $this->allModel->GetFormTopic("WHERE `type`='proud'");
+                        
+                        System::Get('tpl')->assign('name','فخر الاكاديمية');
+                        System::Get('tpl')->assign('topic',$topic);
+                        System::get('tpl')->draw('eventsandconferences');                    
+                    }                
+        }
+
 
 }

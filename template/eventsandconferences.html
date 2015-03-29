@@ -14,35 +14,33 @@
 <div id="main-content" class="containersidebar-right">
 	<div class="content">
 		<div class="page-head">
-			<h1 class="page-title">
-				فعاليات و مؤتمرات			</h1>
+			<h1 class="page-title">	{$name}</h1>
 						<div class="stripe-line"></div>
 
 					</div>
+           {loop="topic"}
             <div class="box1">
                     <div class="image1">
                         <img src="/img/test.jpg" border="0">
                     </div>
                     <div class="details1">
                         <div class="title1">
-                            <div style="font-weight: bold; color: #00468C;">المؤتمر الرياضي للتفكير</div>
+                            <div style="font-weight: bold; color: #00468C;">{$value.title}</div>
                         </div>
-                        <div class="subtitle1">
+                        <div class="subtitle1" style="height: 45px;">
                             <div style="font-weight: normal; ">
-                                مؤتمر الرياضي للتفكير مع الدكتور انس محمد 
+                                {$value.mini_desc}
                             </div>
 
                         </div>
-                        <div class="description1">
-                                مؤتمر الرياضي للتفكير مع الدكتور انس محمد 
-                                <br/>
-                                مؤتمر الرياضي للتفكير مع الدكتور انس محمد 
+                        <div class="description1" >
+                                <br/> 
                         </div>
                     </div>
                     <div class="footer1">
-                        <div class="owner1">المالك: شركة مساهمه</div>
+                        <div class="owner1"></div>
                         <div class="statistics1">
-                            28-12-2014 
+                            {$value.date} 
                         </div>
 
                     </div>
@@ -51,7 +49,7 @@
                     </div>
 
                 </div> <br/><br/>
-				
+		{/loop}		
 								
 				
 				
