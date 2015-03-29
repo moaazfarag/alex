@@ -15,5 +15,5 @@ $allmod     = new allModel();
  */
 $controller     = new allController ($allmod);
 
-$controller->viewAllTopic();
+$controller->addVideo();
 
