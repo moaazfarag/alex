@@ -897,5 +897,50 @@ public function GatewayMedia()
                     }                
         }
 
-
+        /**
+         * search certificates
+         * ابحث عن شهادتك
+         * 
+         */
+public function certificates()
+        
+        {
+    
+            
+            if (isset($_POST['search']))
+                
+                {
+                    $cer        = htmlspecialchars($_POST['cer']);
+                    $error      = ""; // error empty 
+                    
+                    $your_cer   = $this->allModel->GetFormTopic("WHERE `mini_desc`='$cer'"); // check if there are data by the same post
+                    if (count($your_cer)>0)
+                        {
+//                                print_r($your_cer);
+//                                DIE(); 
+                                //$your_cer = $your_cer['0']['url'];
+                                $error = ""; // error empty "no error"
+                                System::Get('tpl')->assign('error',$error); //assign no error
+                                System::Get('tpl')->assign('cer',$your_cer);
+                                System::get('tpl')->draw('certificates'); 
+                                
+                        }else
+                            {
+                                $error = "لا توجد شهاده بهذا الكود";
+                                System::Get('tpl')->assign('error',$error);
+                                System::get('tpl')->draw('certificates');
+                            }
+                
+                }else
+                    {
+                        $error   = "";
+                        System::Get('tpl')->assign('error',$error);
+                        System::get('tpl')->draw('certificates');                    
+                    
+                    }
+    
+        }
+ 
+        
+        
 }
