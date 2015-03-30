@@ -35,7 +35,7 @@ class allController
     */
    public function addPhoto()
            {
-       
+                $siteurl=$_SERVER['REQUEST_URI'];
                 if(isset($_POST['import']))
                     {
 
@@ -49,8 +49,15 @@ class allController
                          $filenameonly  = $image_name.$date; // file name with date without ext 
                          $target        = 'template/images/'.$filename; // path of server folder 
                          $url           = 'images/'.$filename; // create url to use in href 
-                         $section       = "img"; // set section type 
-                         
+                        if($siteurl=="/alex/admin/add-int-company-credits.php")
+                            {
+                                $section        = "img_int_company";
+                            }elseif($siteurl=="/alex/admin/add-slide-photo.php"){
+                                 $section       = "img_slide";
+                            }elseif($siteurl=="/alex/admin/add-photo.php"){
+                                 $section       = "img";
+                            } // set section type
+                          
                          if(!empty($ext))
                          {
                                 //array to store in database
@@ -65,7 +72,7 @@ class allController
                             $this->allModel->addNewFile($data); // insert photo or file that uploaded into `upload` database table
                             move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
                             System::get('tpl')->draw('header-admin');
-                            System::get('tpl')->assign('message',' تم اضافة الملف بنجاح');
+                            System::get('tpl')->assign('message',' تمت الاضافة  بنجاح');
                             System::get('tpl')->draw('success');
                             
                          }else
@@ -78,7 +85,15 @@ class allController
                     }else
                     { // if user not press at ['import'] button
                         System::Get('tpl')->draw('header-admin');
-                        System::Get('tpl')->draw('add_photo');
+                        if($siteurl=="/alex/admin/add-int-company-credits.php")
+                            {
+                                System::Get('tpl')->draw('add_int_company_credits'); 
+                            }elseif($siteurl=="/alex/admin/add-slide-photo.php"){
+                                 System::Get('tpl')->draw('add_slide_photo'); 
+                            }elseif($siteurl=="/alex/admin/add-photo.php"){
+                                 System::Get('tpl')->draw('add_photo'); 
+                            }
+
                     }
            }
            
@@ -96,6 +111,48 @@ class allController
                                     System::Get('tpl')->assign('files',$files);
                                     System::get('tpl')->draw('header-admin');
                                     System::get('tpl')->draw('view_photos'); 
+                }else{
+                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('error'); 
+
+                }   
+        } 
+           
+              
+    /**
+     * view all international credits photos(photos gallary) just that section == img for admin
+     * 
+     */
+           
+   public function viewAllCredits()
+        {
+            $files = $this->allModel->GetFormUpload("WHERE `section`='img_int_company'"); // get file from DataBase 
+                if($files>0)
+                {
+                                    System::Get('tpl')->assign('files',$files);
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('view_img_int_company'); 
+                }else{
+                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('error'); 
+
+                }   
+        } 
+                     
+    /**
+     * view all slide photos(photos gallary) just that section == img for admin
+     * 
+     */ 
+   public function viewAllSlidePhoto()
+        {
+            $files = $this->allModel->GetFormUpload("WHERE `section`='img_slide'"); // get file from DataBase 
+                if($files>0)
+                {
+                                    System::Get('tpl')->assign('files',$files);
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('view_slide_photo'); 
                 }else{
                                     System::get('tpl')->assign('message','حدث شئ خطا :(');
                                     System::get('tpl')->draw('header-admin');
@@ -264,14 +321,18 @@ class allController
                     }else
                     { // if user not press at ['add_topic'] button
                         System::Get('tpl')->draw('header-admin');
-//                        echo $_SERVER['REQUEST_URI'] ;
-                         if($_SERVER['REQUEST_URI'] == "/alex/admin/add-cer.php")
+                        $url=$_SERVER['REQUEST_URI'];
+                         if($url == "/alex/admin/add-cer.php")
                         {
                         System::Get('tpl')->draw('add_cer');
-                        }elseif($_SERVER['REQUEST_URI'] == "/alex/admin/add-training-packages.php"){
+                        }elseif($url == "/alex/admin/add-training-packages.php"){
                         System::Get('tpl')->draw('add_training_packages');
-                        }elseif($_SERVER['REQUEST_URI'] == "/alex/admin/add-training-center.php"){
+                        }elseif($url == "/alex/admin/add-training-center.php"){
                         System::Get('tpl')->draw('add_training_center');
+                        }elseif($url == "/alex/admin/add-training-schedule.php"){
+                        System::Get('tpl')->draw('add_training_schedule');
+                        }elseif($url == "/alex/admin/add-training-member.php"){
+                        System::Get('tpl')->draw('add_training_member');
                         }
                         else {
                                 System::Get('tpl')->draw('add_topic');
@@ -421,40 +482,28 @@ class allController
    public function viewAllTraining()
         {
             
-            if(isset($_POST['view_type'])) // preview button -> ['view_type']
-            {
-                $selected_type = $_POST['topic_type']; // select name
-                if($selected_type == "all")
-                {
-                    $topics = $this->allModel->GetFormTopic("WHERE `type`!='cer'");
-                    System::Get('tpl')->assign('topics',$topics);
-                    System::get('tpl')->draw('header-admin');
-                    System::get('tpl')->draw('view_topics'); 
-                }elseif($selected_type === "event" || $selected_type === "press" || $selected_type === "media")
-                    {
-                        $topics = $this->allModel->GetFormTopic("WHERE topic.type = '$selected_type'");
-                        System::Get('tpl')->assign('topics',$topics);
-                        System::get('tpl')->draw('header-admin');
-                        System::get('tpl')->draw('view_topics'); 
-                    }  else
-                        {
-                            System::get('tpl')->assign('message','  غير متاح  ');
-                            System::get('tpl')->draw('header-admin');
-                            System::get('tpl')->draw('error'); 
-                        }
-            }
-            else
-            {
-                
                 $topics = $this->allModel->GetFormTopic("WHERE `type`='training_package'");
                 $url=$_SERVER['REQUEST_URI'];
-                if($_SERVER['REQUEST_URI'] == "/alex/admin/view-training-center.php")
+                if($url == "/alex/admin/view-training-center.php")
                 {
                     $topics = $this->allModel->GetFormTopic("WHERE `type`='training_center'");
                     System::Get('tpl')->assign('topics',$topics);
                     System::get('tpl')->draw('header-admin');
                     System::get('tpl')->draw('view_center'); 
                     
+                }elseif ($url=="/alex/admin/view-training-schedule.php")
+                {
+                    $topics = $this->allModel->GetFormTopic("WHERE `type`='training_schedule'");
+                    System::Get('tpl')->assign('topics',$topics);
+                    System::get('tpl')->draw('header-admin');
+                    System::get('tpl')->draw('view_training_schedule');            
+                }
+                elseif ($url=="/alex/admin/view-training-member.php")
+                {
+                    $topics = $this->allModel->GetFormTopic("WHERE `type`='training_member'");
+                    System::Get('tpl')->assign('topics',$topics);
+                    System::get('tpl')->draw('header-admin');
+                    System::get('tpl')->draw('view_training_member');            
                 }elseif($topics > 0)
                     {
                         System::Get('tpl')->assign('topics',$topics);
@@ -467,7 +516,6 @@ class allController
 
                     }  
             }
-        } 
         
    /**
     * delete topic from topic table --database--  
@@ -501,7 +549,7 @@ class allController
                                 if($deleteTopic >0 && $deleteFormDB > 0 && $deleteFromServer > 0)
                                 {
                                     System::get('tpl')->draw('header-admin');
-                                    System::get('tpl')->assign('message','تم حذف  الملف بنجاح');
+                                    System::get('tpl')->assign('message','تم الحذف   بنجاح');
                                     System::get('tpl')->draw('success');   
                                 }
                             }else
@@ -1248,4 +1296,23 @@ public function photoGallary()
             
             }  
     }// end of update comment
+    
+    /**
+     * view all slide photos(photos gallary) just that section == img for user
+     * 
+     */ 
+   public function viewAllSlidePhotoUser()
+        {
+            $files = $this->allModel->GetFormUpload("WHERE `section`='img_slide'"); // get file from DataBase 
+                if($files>0)
+                {
+                                    System::Get('tpl')->assign('files',$files);
+                                    System::get('tpl')->draw('index'); 
+                }else{
+                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('error'); 
+
+                }   
+        } 
 }
