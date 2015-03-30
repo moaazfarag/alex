@@ -6,88 +6,29 @@
 <div class="content">
         <div id="slider-pro-47-shortcode" class="slider-pro">
         <div class="sp-slides">
-            
+            {loop="$files"}
                 <div class="sp-slide">
-                    <img class="sp-image" src="wp-content/uploads/2015/01/12.jpg"
-                         data-src="template/wp-content/uploads/2015/01/12.jpg"
-                         data-retina="wp-content/uploads/2015/01/12.jpg"/>
-                    <div class="sp-caption">                        <a class="more" href="index5643.html?p=30">أكمل القراءة &raquo;</a>
-                    </div>
+                    <img class="sp-image" 
+                         src="admin/template/{$value.url}"
+                         data-src="admin/template/{$value.url}"
+                         data-retina="admin/template/{$value.url}"/>
+
                 </div>
-            
-                <div class="sp-slide">
-                    <img class="sp-image" src="wp-content/uploads/2015/01/11.jpg"
-                         data-src="template/wp-content/uploads/2015/01/11.jpg"
-                         data-retina="wp-content/uploads/2015/01/11.jpg"/>
-                    <div class="sp-caption">                        <a class="more" href="indexdd23.html?p=33">أكمل القراءة &raquo;</a>
-                    </div>
-                </div>
-            
-                <div class="sp-slide">
-                    <img class="sp-image" src="wp-content/uploads/2015/01/12.jpg"
-                         data-src="template/wp-content/uploads/2015/01/12.jpg"
-                         data-retina="wp-content/uploads/2015/01/12.jpg"/>
-                    <div class="sp-caption">                        <a class="more" href="index0d0b.html?p=36">أكمل القراءة &raquo;</a>
-                    </div>
-                </div>
-            
-                <div class="sp-slide">
-                    <img class="sp-image" src="wp-content/uploads/2015/01/13.jpg"
-                         data-src="template/wp-content/uploads/2015/01/13.jpg"
-                         data-retina="wp-content/uploads/2015/01/13.jpg"/>
-                    <div class="sp-caption">                        <a class="more" href="indexba52.html?p=39">أكمل القراءة &raquo;</a>
-                    </div>
-                </div>
-            
-                <div class="sp-slide">
-                    <img class="sp-image" src="wp-content/uploads/2015/01/10.jpg"
-                         data-src="template/wp-content/uploads/2015/01/10.jpg"
-                         data-retina="wp-content/uploads/2015/01/10.jpg"/>
-                    <div class="sp-caption">                        <a class="more" href="indexfbd5.html?p=42">أكمل القراءة &raquo;</a>
-                    </div>
-                </div>
+            {/loop}
+
                     </div>
         <div class="sp-thumbnails">
+                        {loop="$files"}
                             <div class="sp-thumbnail">
                     <div class="sp-thumbnail-image-container">
                     </div>
                     <div class="sp-thumbnail-text">
-                        <div class="sp-thumbnail-title">عنوان عنوان عنوان</div>
+                        <div class="sp-thumbnail-title">{$value.file_desc}</div>
                         <!--<div class="sp-thumbnail-description"></div>-->
                     </div>
                 </div>
-                            <div class="sp-thumbnail">
-                    <div class="sp-thumbnail-image-container">
-                    </div>
-                    <div class="sp-thumbnail-text">
-                        <div class="sp-thumbnail-title">عنوان عنوان عنوان</div>
-                        <!--<div class="sp-thumbnail-description"></div>-->
-                    </div>
-                </div>
-                            <div class="sp-thumbnail">
-                    <div class="sp-thumbnail-image-container">
-                    </div>
-                    <div class="sp-thumbnail-text">
-                        <div class="sp-thumbnail-title">عنوان عنوان عنوان</div>
-                        <!--<div class="sp-thumbnail-description"></div>-->
-                    </div>
-                </div>
-                            <div class="sp-thumbnail">
-                    <div class="sp-thumbnail-image-container">
-                    </div>
-                    <div class="sp-thumbnail-text">
-                        <div class="sp-thumbnail-title">عنوان عنوان عنوان</div>
-                        <!--<div class="sp-thumbnail-description"></div>-->
-                    </div>
-                </div>
-                            <div class="sp-thumbnail">
-                    <div class="sp-thumbnail-image-container">
-                    </div>
-                    <div class="sp-thumbnail-text">
-                        <div class="sp-thumbnail-title">عنوان عنوان عنوان</div>
-                        <!--<div class="sp-thumbnail-description"></div>-->
-                    </div>
-                </div>
+                        {/loop}
+
                     </div>
     </div>
 

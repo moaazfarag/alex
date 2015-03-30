@@ -35,7 +35,7 @@ class allController
     */
    public function addPhoto()
            {
-                $url=$_SERVER['REQUEST_URI'];
+                $siteurl=$_SERVER['REQUEST_URI'];
                 if(isset($_POST['import']))
                     {
 
@@ -49,10 +49,12 @@ class allController
                          $filenameonly  = $image_name.$date; // file name with date without ext 
                          $target        = 'template/images/'.$filename; // path of server folder 
                          $url           = 'images/'.$filename; // create url to use in href 
-                        if($url=="/alex/admin/add-int-company-credits.php")
+                        if($siteurl=="/alex/admin/add-int-company-credits.php")
                             {
                                 $section        = "img_int_company";
-                            }elseif($url=="/alex/admin/add-photo.php"){
+                            }elseif($siteurl=="/alex/admin/add-slide-photo.php"){
+                                 $section       = "img_slide";
+                            }elseif($siteurl=="/alex/admin/add-photo.php"){
                                  $section       = "img";
                             } // set section type
                           
@@ -70,7 +72,7 @@ class allController
                             $this->allModel->addNewFile($data); // insert photo or file that uploaded into `upload` database table
                             move_uploaded_file( $_FILES['image_up']['tmp_name'], $target);
                             System::get('tpl')->draw('header-admin');
-                            System::get('tpl')->assign('message',' تم اضافة الملف بنجاح');
+                            System::get('tpl')->assign('message',' تمت الاضافة  بنجاح');
                             System::get('tpl')->draw('success');
                             
                          }else
@@ -83,10 +85,12 @@ class allController
                     }else
                     { // if user not press at ['import'] button
                         System::Get('tpl')->draw('header-admin');
-                        if($url=="/alex/admin/add-int-company-credits.php")
+                        if($siteurl=="/alex/admin/add-int-company-credits.php")
                             {
                                 System::Get('tpl')->draw('add_int_company_credits'); 
-                            }elseif($url=="/alex/admin/add-photo.php"){
+                            }elseif($siteurl=="/alex/admin/add-slide-photo.php"){
+                                 System::Get('tpl')->draw('add_slide_photo'); 
+                            }elseif($siteurl=="/alex/admin/add-photo.php"){
                                  System::Get('tpl')->draw('add_photo'); 
                             }
 
@@ -107,6 +111,48 @@ class allController
                                     System::Get('tpl')->assign('files',$files);
                                     System::get('tpl')->draw('header-admin');
                                     System::get('tpl')->draw('view_photos'); 
+                }else{
+                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('error'); 
+
+                }   
+        } 
+           
+              
+    /**
+     * view all international credits photos(photos gallary) just that section == img for admin
+     * 
+     */
+           
+   public function viewAllCredits()
+        {
+            $files = $this->allModel->GetFormUpload("WHERE `section`='img_int_company'"); // get file from DataBase 
+                if($files>0)
+                {
+                                    System::Get('tpl')->assign('files',$files);
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('view_img_int_company'); 
+                }else{
+                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('error'); 
+
+                }   
+        } 
+                     
+    /**
+     * view all slide photos(photos gallary) just that section == img for admin
+     * 
+     */ 
+   public function viewAllSlidePhoto()
+        {
+            $files = $this->allModel->GetFormUpload("WHERE `section`='img_slide'"); // get file from DataBase 
+                if($files>0)
+                {
+                                    System::Get('tpl')->assign('files',$files);
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('view_slide_photo'); 
                 }else{
                                     System::get('tpl')->assign('message','حدث شئ خطا :(');
                                     System::get('tpl')->draw('header-admin');
@@ -1250,4 +1296,23 @@ public function photoGallary()
             
             }  
     }// end of update comment
+    
+    /**
+     * view all slide photos(photos gallary) just that section == img for user
+     * 
+     */ 
+   public function viewAllSlidePhotoUser()
+        {
+            $files = $this->allModel->GetFormUpload("WHERE `section`='img_slide'"); // get file from DataBase 
+                if($files>0)
+                {
+                                    System::Get('tpl')->assign('files',$files);
+                                    System::get('tpl')->draw('index'); 
+                }else{
+                                    System::get('tpl')->assign('message','حدث شئ خطا :(');
+                                    System::get('tpl')->draw('header-admin');
+                                    System::get('tpl')->draw('error'); 
+
+                }   
+        } 
 }
