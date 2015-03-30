@@ -16,12 +16,16 @@ require_once (MODELS.'usersModel.php');
 class usersController
 {
     
-    private $usersModel ; // object from userModel
-    
-    public function __construct(usersModel $usersmod) 
-    {
-        $this->usersModel= $usersmod;
-    }
+   private $usersModel; //requestvisit model object
+   //private $usersModel; //usere model object
+   
+   public function __construct(usersModel $usersmod) 
+           
+   {
+       $this->usersModel      =    $usersmod;
+     //$this->usersModel    =    $usersmodel;
+       
+   }
 
     //************** Admin Area ***************//
     
@@ -266,6 +270,9 @@ class usersController
     }
 
     
+    
+    
+    
     public function login()
             {
                  
@@ -273,38 +280,49 @@ class usersController
                 
                 if (isset($_POST['login']))
                     {
-                        //vars
-                        $username = $_POST['username'];
-                        $password = password($_POST['password']);
+                        //vars //validation
+                        $username = check_input($_POST['username']);
+                        $password = password(strip_tags(trim($_POST['password'])));
 
-                        //validation
+                        
                         
                         //db
                         
                         
                         if($this->usersModel->login($username, $password))
                         {
+
                             $userdata = array();
                             $userdata = $this->usersModel-> getUserInfo();
+                            //$_SESSION['username']   = $userdata['username'];
+                            // in your login check set this two session variables for destroy session after 15 min
                             $_SESSION['username']   = $userdata['username'];
-                            $_SESSION['name']       = $userdata['name'];
-                            $_SESSION['admin']      = $userdata['is_admin'];
-                            if (isset($_SESSION['admin']) && $_SESSION['admin'] ==1)
+                            //$_SESSION['last_login_timestamp'] = time();  
+                            
+                            $_SESSION['name']       = $userdata['name'];        // to store name for assign
+                           // $_SESSION['s_admin']    = $userdata['s_admin'];        // to store name for assign
+//                          $_SESSION['password']   = $userdata['password'];        // to store name for assign
+                            $_SESSION['admin']      = $userdata['is_admin'];    // to store for checking availability to open admin's pages
+                            $_SESSION['user_id']    = $userdata['user_id'];     
+                            //$_SESSION['last_seen']  = $userdata['last_seen'];   // to set last login
+                            if (isset($_SESSION['admin']) && $_SESSION['admin'] ==1 )
                             {
-                                
-                              System::get ('tpl')->assign('title','Home');  
+                              //$id = $_SESSION['user_id'];
+                              //$this->usersModel->lastSeen($id); // to add time now in database through loging
+                                    
+                              //System::get ('tpl')->assign('title','Home');  
                               System::RedirectTo ('index.php');
-                            }elseif (isset($_SESSION['admin']) && $_SESSION['admin'] ==0) 
+                            }elseif (isset($_SESSION['admin']) && $_SESSION['admin'] !=1) 
                                 {
                                 //print_r($_SESSION['admin']);
-                                    System::get ('tpl')->assign('title','Home');  
-                                    System::RedirectTo ('vrmessage.php');
+                                System::get('tpl')->assign('error','اسم المستخدم او كلمة المرور خاطئة');
+                                System::get('tpl')->draw('login');
                                     
                                 }
                         }else
                             {
-                                System::get('tpl')->assign('error','Oh! Inavalid Data');
-                                System::get('tpl')->draw('error-signin');
+                                System::get('tpl')->assign('error','اسم المستخدم او كلمة المرور خاطئة!!');
+                                System::get('tpl')->draw('login');
                                 
                             }
                         
@@ -312,14 +330,14 @@ class usersController
                     else
                         {
                         
-                        if(isset($_SESSION['admin'])  )
+                        if(isset($_SESSION['admin']))
                             {
-                                if ($_SESSION['admin'] ==1)
+                                if($_SESSION['admin'] ==1)
                                     {
                                        System::RedirectTo ('index.php');
-                                    }elseif ($_SESSION['admin'] ==0) 
+                                    }elseif ($_SESSION['admin'] == 0) 
                                         {
-                                            System::RedirectTo ('vrmessage.php');
+                                            System::RedirectTo ('login.php');
                                         }
                             }  else 
                             

@@ -26,4 +26,4 @@ $allmod     = new allModel();
  */
 $controller     = new allController ($allmod);
 
-$controller->updateTopic();
+$controller->updateComment();

@@ -14,7 +14,7 @@
 
 require_once '../globals.php';
 require_once (CONTROLLERS.'allController.php');
-//is_admin();
+is_admin();
 
 /*
  * objects from Visit Request Model and users Model

@@ -1,0 +1,71 @@
+
+            <!--Start Admin Panal MAin Content Right Block-->
+            <div class="main_container col-lg-9 col-md-8 col-sm-9 col-xs- pull-left">
+                <div class="row main_container_head">
+                    <h4><span class="glyphicon glyphicon-edit"></span>الشهادات  </h4>
+                </div>
+
+                <div class="row control_panal_body">
+                    <!--Start Admin Panal Section Description-->
+                    <p class="page_desc"> عرض جميع شهادات موقعك والتحكم فيها من الحقول ادناه</p>
+                    <!--End Admin Panal Section Description-->
+
+                    <div class="admin_index">
+                        <!--Start Site Main Options and Data-->
+                        <div class="panel panel-default  view_photo">
+                            <div class="panel-heading text-right h4">عرض جميع الشهادات</div>
+
+                            <table class="table">
+                                <tr class="h4 text-center">
+                                    <td class="">الاسم</td>
+                                    <td class="">الايميل</td>
+                                    <td class="">التوقيع</td>
+                                    <td class="">الدولة</td>
+                                    <td class="">التاريخ</td>
+                                    <td class="text-center">التحكم</td>
+                                </tr>
+                                {loop="comments"}
+                                <tr class="text-center">
+                                    <td class="english">{$value.title}</td>
+                                    <td>{$value.mini_desc}</td>
+                                    <td>{$value.topic}</td>
+                                    <td>{$value.country}</td>
+                                    <td>{$value.date}</td>
+                                    <td class="text-center">
+                                        <a href="delete-comment.php?topic_id={$value.topic_id}" title="حذف" class="glyphicon glyphicon-trash"></a>
+                                        <a href="update-comment.php?id={$value.topic_id}" title="رقع التعليق بسجل الزوار" class="glyphicon glyphicon-upload"></a>
+                                    </td>
+                                </tr>
+                                {/loop}
+                            </table>
+
+
+                            <nav class="english text-center ltr">
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                        </div>
+                        <!--End Site Main Options and Data-->
+                    </div>
+                </div>
+            </div>
+            <!--Start Admin Panal MAin Content Right Block-->
+        </div>
+        <!--End Admin Panal Main Body-->
+        {include="footer-admin"}

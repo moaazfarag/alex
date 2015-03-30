@@ -990,21 +990,23 @@ public function GatewayMedia()
                     }                
         }
 
-        /**
-         * search certificates
-         * ابحث عن شهادتك
-         * 
-         */
-                /**
-         * البوابة الاعلامية
-         * 
-         */
+
+   /**
+    * survey
+    * الاستفتاء
+    * 
+    */
     public function survey()
                     {
                     System::get('tpl')->draw('survey')  ;
                         
                     }
-    
+
+        /**
+         * search certificates
+         * ابحث عن شهادتك
+         * 
+         */
 public function certificates()
         
         {
@@ -1085,4 +1087,167 @@ public function photoGallary()
 
                 }   
         } 
+        
+        
+    /**
+     * Add comment for visitor
+     *  
+     */
+           
+   public function addComment()
+        {
+          $message = "";
+          
+            if(isset($_POST['sendcomment']))
+              {
+                
+                $name               = htmlspecialchars(filter_input(INPUT_POST, 'name')); // اسم صاحب التوقيع
+                $email              = htmlspecialchars(filter_input(INPUT_POST, 'email')); // ايميل صاحب التوقيع 
+                $comment            = htmlspecialchars(filter_input(INPUT_POST, 'your-comment')); // التوقيع نفسه
+                $country            = htmlspecialchars(filter_input(INPUT_POST, 'country')); // الدوله
+                $date               = date("Y-m-d-h-i-s");  // now time and date  
+                $type               = "comment";
+
+                $data =
+                         
+                         array
+                            (
+                            'title'         => $name , 
+                            'mini_desc'     => $email,
+                            'topic'         => $comment,
+                            'country'       => $country,
+                            'date'          => $date, // now time and date 
+                            'type'          => $type
+                             );
+            
+             $addComment = $this->allModel->addNewTopic($data);
+             
+            if($addComment)
+                {
+                        $message = "نشكر لكم التوقيع في سجل الزوار وسنقوم بمراجعة التوقيع قبل عرضه علي الموقع";
+                        System::get('tpl')->assign('message',$message);
+                        System::get('tpl')->draw('add-comment'); 
+                   }else{
+                        $message = "لم يتم اضافة توقيعك الرجاء المحاولة وقت لاحق";
+                        System::get('tpl')->assign('message',$message);
+                        System::get('tpl')->draw('error');                       
+                   }
+          }else{
+                        $message = "";
+                        System::get('tpl')->assign('message',$message);              
+                        System::get('tpl')->draw('add-comment'); 
+          } 
+        } 
+        
+    /**
+     * review all comments by admin to approved them
+     *  
+     */
+           
+   public function reviewComments()
+        {
+       
+       
+           $path= $_SERVER['REQUEST_URI'];
+              if ($path == "/alex/visitor-feedback.php")
+                
+                {
+                    $comments = $this->allModel->GetFormTopic("WHERE `type`='comment'&&`comment_status`= 1");
+
+                    System::Get('tpl')->assign('comments',$comments);
+                    System::Get('tpl')->draw('visitor-feedback');
+                    
+                }elseif ($path == "/alex/admin/reviewcomments.php") 
+                    {
+            
+                        $comments = $this->allModel->GetFormTopic("WHERE `type`='comment'&&`comment_status`= 0");
+              
+              
+                            System::Get('tpl')->assign('comments',$comments);
+                            System::get('tpl')->draw('header-admin'); 
+                            System::get('tpl')->draw('reviewcomments'); 
+                    }
+               
+        } 
+    /**
+     * delete comments by admin
+     *  
+     */
+           
+   public function deleteComment()
+        {
+       
+           $topic_id = 0; // int topic_id of comment
+       if ((int)$_GET['topic_id'])// id of comment
+       {     
+           $topic_id = (int)$_GET['topic_id']; // id of comment
+           
+           if(!empty($topic_id) && (int)$topic_id > 0 )
+               {
+                    $table           = 'topic';     // name of table delete from  to use in SQL Query
+                    $col             = 'topic_id';  // name of colmun to use in SQL Query 
+                    $deleteComment   = $this->allModel->Delete($table,$col,$topic_id);  //to delete from database
+                                
+                            if($deleteComment)
+                                {
+                                 System::get('tpl')->draw('header-admin');
+                                 System::get('tpl')->assign('message','تم حذف  التعليق بنجاح');
+                                 System::get('tpl')->draw('success');   
+                                }
+                }
+        }  
+     
+        
+        
+               
+       } 
+        
+        
+       
+    /**
+     * update comments by admin to approved it 
+     *  
+     */
+           
+   public function updateComment()   
+   {   
+       
+            $id = 0 ;
+       if ((int)$_GET['id'])// id of comment
+            
+            {
+            
+            $topic_id = $id ;
+            
+            $topic_id = (int)$_GET['id']; // id of comment
+
+            if(!empty($topic_id) && (int)$topic_id > 0 )
+                {
+                     $status          = 1;
+                     $topicData       = array
+                         (
+                            'comment_status'  => $status 
+                         ) ;
+                     
+//                     echo $topic_id;
+//                     print_r($topicData);
+//                     die();
+                           $updateComment = $this->allModel->UpdateForTopic($topic_id,$topicData);
+
+
+                             if($updateComment)
+                                 {
+                                  System::get('tpl')->draw('header-admin');
+                                  System::get('tpl')->assign('message','تم اضافة التعليق بنجاح بالموقع ');
+                                  System::get('tpl')->draw('success');   
+                                 }else
+                                     {
+                                        System::get('tpl')->draw('header-admin');
+                                        System::get('tpl')->assign('message','فشل اضافة التعليق علي الموقع الرئيسي  ');
+                                        System::get('tpl')->draw('error');                                        
+                                     }
+                }            
+            
+            }  
+    }// end of update comment
 }

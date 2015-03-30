@@ -16,5 +16,5 @@ $allmod     = new allModel();
  */
 $controller     = new allController ($allmod);
 
-$controller->viewAllTraining();
+$controller->deleteComment();
 

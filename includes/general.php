@@ -20,14 +20,5 @@ function is_admin()
     
 }
 
-function is_user()
-
-{
-    if (!isset($_SESSION['admin']) || $_SESSION['admin'] !=0)
-        {
-                System::RedirectTo('login.php');
-        }
-        
 
     
-}

@@ -159,17 +159,21 @@ class usersModel
      * @return boolean
      */
   
+
     public function login($username,$password)
+
     {
-        
         $user = $this->get("WHERE `username` = '$username' AND `password` = '$password'");
+
         if (count ($user) > 0)
+
         {
             $this->userInfo = $user[0];
             return TRUE;
         }
         return FALSE;
     }
+
     
     /*
      * 
@@ -177,11 +181,10 @@ class usersModel
      * OR
      * Return userInfo By New Data
      */
+
     public function getUserInfo()
-            
     {
         return $this->userInfo;
     }
-    
     
 }
