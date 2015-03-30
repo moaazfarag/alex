@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <!--
 /*
-    Theme Name: Adminty
-    Theme URI: http://www.roqay.com
-    Author: Hosam Zewain
-    Author URI: http://www.hosamzewain.com
-    Description:  Free Admin Panal
+    Theme Name: debono
+    Author: Mohamed Hafez && Moaaz Farag
+    Author URI: Mohamed.hafezqo@gmail.com
     Version: 1.0
 */
 -->
@@ -36,37 +34,32 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                         <h4 class="modal-title">تسجيل الدخول الي لوحة التحكم</h4>
                     </div>
-                    <div id="test" class="modal-body notvis">
+                   <div id="test" class="modal-body notvis" style="direction: rtl">
                         ادخل اسم المستخدم او البريد الالكتروني وكلمة المرور
-                        <form method="get" action="/index.html" style="direction: ltr">
+                    </div>
+                   <form method="post" action="login.php" style="direction: ltr">
+
+
                             <div class="input-group input-group-lg">
-                                <input type="text" class="form-control" placeholder="اسم المستخدم" aria-describedby="username">
+                                <input type="text" name="username" class="form-control" placeholder="اسم المستخدم" aria-describedby="username">
                                 <span class="input-group-addon glyphicon glyphicon-user" id="username"></span>
                             </div>
                             <div class="input-group input-group-lg">
-                                <input type="password" class="form-control" placeholder="كلمة المرور" aria-describedby="password">
+                                <input type="password" name="password" class="form-control" placeholder="كلمة المرور" aria-describedby="password">
                                 <span class="input-group-addon glyphicon glyphicon-lock" id="password"></span>
                             </div>
-                        </form>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> حفظ بيانات الدخول 
-                            </label>
-                        </div>
+                            <center><span class="alert alert-danger h4"  >{$error}</span></center>
+                        
 
-                    </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">الغاء</button>
-                        <button type="button" class="btn btn-primary">تسجيل دخول</button>
+                        <button type="submit" name="login" class="btn btn-primary">تسجيل دخول</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
         <!--End Login From-->
         
-        <!--Please Remove this <a> tag-->
-        <a href="index.html" style="text-align: center; display: block; margin-top: 50px; color: rgb(255, 0, 0); font-weight: bolder; font-size: 30px;">المتابعه لمعاينة صفحات لوحة التحكم</a>
-        <!--Please Remove this <a> tag-->
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!-- Include all compiled plugins (below), or include individual files as needed -->

@@ -8,7 +8,7 @@
 
 require_once('../globals.php');
 
-//is_admin();
+is_admin();
 //System::get('tpl')->assign('username',$_SESSION['username']);
 System::Get('tpl')->draw('header-admin');
 System::Get('tpl')->draw('index');

@@ -12,19 +12,19 @@
  * @author Mohamed Hafez
  */
 
-require_once 'globals.php';
+require_once '../globals.php';
 require_once (CONTROLLERS.'usersController.php');
-
+//is_admin();
 
 /*
  * objects from Visit Request Model and users Model
  * 
  */
-$usersmodel     = new usersModel();
+$usersmod     = new usersModel();
 /*
  * controller instance
  */
-$controller     = new usersController ($usersmodel);
+$controller     = new usersController ($usersmod);
 
 
 $controller->login();

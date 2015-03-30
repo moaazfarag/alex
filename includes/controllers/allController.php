@@ -1155,7 +1155,7 @@ public function photoGallary()
                     System::Get('tpl')->assign('comments',$comments);
                     System::Get('tpl')->draw('visitor-feedback');
                     
-                }elseif ($path == "/alex/reviewcomments.php") 
+                }elseif ($path == "/alex/admin/reviewcomments.php") 
                     {
             
                         $comments = $this->allModel->GetFormTopic("WHERE `type`='comment'&&`comment_status`= 0");
