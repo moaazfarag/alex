@@ -1,0 +1,49 @@
+
+            <!--Start Admin Panal MAin Content Right Block-->
+            <div class="main_container col-lg-9 col-md-8 col-sm-9 col-xs- pull-left">
+                <div class="row main_container_head">
+                    <h4><span class="glyphicon glyphicon-picture"></span>إضافة صورة جديده </h4>
+                </div>
+
+                <div class="row control_panal_body">
+                    <!--Start Admin Panal Section Description-->
+                    <p class="page_desc"> تستطيع إضافة صورة جديده الي  موقعك من خلال المحرر ادناه يفضل ان يكون حجم الصورة
+                        <b style="color: red;">1024x683</b>
+                    </p>
+                    <!--End Admin Panal Section Description-->
+
+
+
+
+                    <div class="admin_index">
+                        <!--Start Site Main Options and Data-->
+                        <div class="panel panel-default site_info">
+                            <div class="panel-heading text-right h4">إضافة صورة جديد</div>
+
+                            <form action="add-photo.php" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="photo_desc">وصف الصورة</label>
+                                    <input name="image-desc" type="text" class="form-control" id="photo_desc" placeholder="وصف الصورة" title="اضف الوصف هنا " required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="photo_img">الصورة</label>
+                                    <input name="image_up" type="file" id="photo_img" title="برجاء اختيار الملف " required>
+                                </div>
+
+                                <button name="import" type="submit" class="btn btn-default">إضافة الصورة</button>
+                                <button type="reset" class="btn btn-default">مسح البيانات</button>
+                            </form>
+
+
+
+                        </div>
+                        <!--End Site Main Options and Data-->
+                    </div>
+                </div>
+            </div>
+            <!--Start Admin Panal MAin Content Right Block-->
+        </div>
+        <!--End Admin Panal Main Body-->
+
+
+{include="footer-admin"}
