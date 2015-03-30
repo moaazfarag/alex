@@ -56,41 +56,37 @@
     		<div id="comments">
 
                     <h3 id="comments-title">
-                        <a href="#">اضف توقيعك
+                        <a href="add-comment.php">اضف توقيعك
                                 <img src="/img/AddComment.gif" />
                         </a>    
                     </h3>
 
         <ol class="commentlist">
             <li id="comment-7">
+                {loop="comments"}
                     <div class="box1">
                             <div class="footer1">
-                                <div class="owner1">أبو مرزوق &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="owner1"><b>{$value.title}</b>&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    الدولة : الامارات</div>
+                                    الدولة : {$value.country}</div>
                                 <div class="statistics1">
-                                    <b>  28-12-2014 </b>
+                                    <b>  {$value.date} </b>
                                 </div>
                             </div>
                             <div class="details2">
                                     <br/>
-        السلام عليكم ورحمة الله وبركاته تشرفت بالاطلاع على موقع اكاديمية ديبونو
-        جزا الله جميع الاخوه على هذا العمل الجبار وبارك الله فيكم .
-        
+                        {$value.topic}
                             </div>
 
 
                         </div> <br/><br/>
-
+                {/loop}
                 </li><!-- #comment-## -->
         </ol>
 			    
-							
-
-
 		
 </div><!-- #comments -->
 </div><!-- .content -->
