@@ -1146,7 +1146,7 @@ public function photoGallary()
         {
        
        
-            $path= $_SERVER['REQUEST_URI'];
+           $path= $_SERVER['REQUEST_URI'];
               if ($path == "/alex/visitor-feedback.php")
                 
                 {
