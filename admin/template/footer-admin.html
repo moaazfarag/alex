@@ -7,19 +7,11 @@
         <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/adminy.js"></script>
-        <script src="text_editor/jquery.sceditor.bbcode.min.js"></script>
-
-
-        <script>
-            $(document).ready(function () {
-                var initEditor = function () {
-                    $("textarea").sceditor({
-                        plugins: 'bbcode',
-                        style: "./minified/jquery.sceditor.default.min.css"
-                    });
-                };
-                initEditor();
-            });
+        <script type="text/javascript" src="tinymce/tinymce.min.js"></script>
+        <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea"
+         });
         </script>
 
     </body>

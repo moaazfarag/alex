@@ -7,16 +7,22 @@
     Version: 1.0
 */
 -->
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <html lang="ar">
     <head>
-        <meta charset="utf-8">
+        <script type="text/javascript" src="tinymce/tinymce.min.js"></script>
+        <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea"
+         });
+        </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Admin Panal</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/icon.css" rel="stylesheet">
-        <link rel="stylesheet" href="text_editor/themes/default.min.css" type="text/css" media="all" />
+        <!--<link rel="stylesheet" href="text_editor/themes/default.min.css" type="text/css" media="all" />-->
         <link id="css" rel="stylesheet">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -84,7 +90,7 @@
                 <img src="img/site_logo.png" alt="">
 
                 <div class="panel-group">
-                    <a class="main_menu_link" href="index.php"><span class="glyphicon glyphicon-home menu_link_icon"></span>الصفحة الرئيسية</a>
+                    <a class="main_menu_link" href="reviewcomments.php"><span class="glyphicon glyphicon-home menu_link_icon"></span>الصفحة الرئيسية</a>
                 </div>
                 <div class="panel-group">
                     <a class="main_menu_link" href="siteinfo.php"><span class="glyphicon glyphicon-link menu_link_icon"></span>بيانات الموقع</a>

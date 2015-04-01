@@ -82,7 +82,7 @@ class allModel
     public function GetFormTopic($extra='')
     {
         $info = array();
-        System::get('db')->Execute("SELECT topic.*,upload.file_name,upload.url FROM"
+        System::get('db')->Execute("SELECT topic.*,upload.file_name,upload.url,upload.file_desc FROM"
                 . " topic LEFT JOIN upload ON topic.`upload_id`=upload.`upload_id` {$extra} ");
         if(System::get('db')->AffectedRows()>0)
              $info = System::get ('db')->GetRows();

@@ -12,30 +12,30 @@
 
 
                 <!---------------------- gadwal el7kaeb el tadrebia  -------------->
+                             
+                      {loop="topics"}     
                 <div class="box1">
                     <div class="image1">
                         <img src="img/test.jpg" border="0">
                     </div>
                     <div class="details1">
                         <div class="title1">
-                            <div style="font-weight: bold; color: #00468C;">بنك البلاد</div>
+                            <div style="font-weight: bold; color: #00468C;">{$value.title}</div>
                         </div>
                         <div class="subtitle1">
                             <div style="font-weight: normal; ">
-                                هو بنك قومي كبير
+                            {$value.mini_desc}
                             </div>
 
                         </div>
                         <div class="description1">
-                            هو بنك اهل الرياض من ذو عشرات السنين
-                            هو بنك اهل الرياض من ذو عشرات السنين
-                            هو بنك اهل الرياض من ذو عشرات السنين
+                            {$value.topic}
                         </div>
                     </div>
                     <div class="footer1">
                         <div class="owner1">المالك: شركة مساهمه</div>
                         <div class="statistics1">
-                            28-12-2014 
+                            {$value.date}
                         </div>
 
                     </div>
@@ -44,39 +44,7 @@
                     </div>
 
                 </div> <br/><br/>
-                
-                <div class="box1">
-                    <div class="image1">
-                        <img src="img/test.jpg" border="0">
-                    </div>
-                    <div class="details1">
-                        <div class="title1">
-                            <div style="font-weight: bold; color: #00468C;">بنك البلاد</div>
-                        </div>
-                        <div class="subtitle1">
-                            <div style="font-weight: normal; ">
-                                هو بنك قومي كبير
-                            </div>
-
-                        </div>
-                        <div class="description1">
-                            هو بنك اهل الرياض من ذو عشرات السنين
-                            هو بنك اهل الرياض من ذو عشرات السنين
-                            هو بنك اهل الرياض من ذو عشرات السنين
-                        </div>
-                    </div>
-                    <div class="footer1">
-                        <div class="owner1">المالك: شركة مساهمه</div>
-                        <div class="statistics1">
-                            28-12-2014 
-                        </div>
-
-                    </div>
-                    <div class="shadow1">
-                        <div class="shadow1"> </div>
-                    </div>
-
-                </div>
+                {/loop}
                 <!----------------  end of gadwal el7kaeb       -------------------->
 
 

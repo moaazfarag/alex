@@ -430,11 +430,11 @@ class allController
                 $selected_type = $_POST['topic_type']; // select name
                 if($selected_type == "all")
                 {
-                    $topics = $this->allModel->GetFormTopic("WHERE `type`='event'&&`type`='press'&&`type`='media'&&`type`='proud'");
+                    $topics = $this->allModel->GetFormTopic("WHERE `type`='event'||`type`='press'||`type`='media'||`type`='proud'||`type`='news'");
                     System::Get('tpl')->assign('topics',$topics);
                     System::get('tpl')->draw('header-admin');
                     System::get('tpl')->draw('view_topics'); 
-                }elseif($selected_type === "event" || $selected_type === "press" || $selected_type === "media")
+                }elseif($selected_type === "event" || $selected_type === "press" || $selected_type === "media"|| $selected_type === "proud")
                     {
                         $topics = $this->allModel->GetFormTopic("WHERE topic.type = '$selected_type'");
                         System::Get('tpl')->assign('topics',$topics);
@@ -450,7 +450,7 @@ class allController
             else
             {
                 
-                $topics = $this->allModel->GetFormTopic("WHERE `type`='event'&&`type`='press'&&`type`='media'&&`type`='proud'");
+                $topics = $this->allModel->GetFormTopic("WHERE `type`='event'||`type`='press'||`type`='media'||`type`='proud'||`type`='news'");
                 $url=$_SERVER['REQUEST_URI'];
                 if($_SERVER['REQUEST_URI'] == "/alex/admin/view-cers.php")
                 {
@@ -461,6 +461,7 @@ class allController
                     
                 }elseif($topics > 0)
                     {
+
                         System::Get('tpl')->assign('topics',$topics);
                         System::get('tpl')->draw('header-admin');
                         System::get('tpl')->draw('view_topics'); 
@@ -994,6 +995,30 @@ public function navbar ()
 
         }
         
+            /**
+     *
+     * view all trainingpackage 
+     * or 
+     * view by type  
+     */
+        
+   public function viewAllTrainingPackageUser()
+        {
+            
+                $topics = $this->allModel->GetFormTopic("WHERE `type`='training_package'");
+                $url=$_SERVER['REQUEST_URI'];
+                if($topics > 0)
+                    {
+                        System::Get('tpl')->assign('topics',$topics);
+                        System::get('tpl')->draw('trainingPackages'); 
+                    }else{
+                            System::get('tpl')->assign('message','حدث شئ خطا :(');
+                            System::get('tpl')->draw('header-admin');
+                            System::get('tpl')->draw('error'); 
+
+                    }  
+            }
+            
         /**
          * البوابة الاعلامية
          * 
