@@ -1329,6 +1329,7 @@ public function photoGallary()
    public function viewAllSlidePhotoUser()
         {
             $files = $this->allModel->GetFormUpload("WHERE `section`='img_slide'"); // get file from DataBase 
+            $news = $this->allModel->GetFormTopicForIndex();
                 if($files>0)
                 {
                                     System::Get('tpl')->assign('files',$files);
