@@ -5,8 +5,8 @@
 h3.toggle-head-open .tieicon-up, h3.toggle-head-close .tieicon-down,
 .woocommerce-message .button, .woocommerce-error .button, .woocommerce-info .button,.woocommerce .col2-set .col-2, .woocommerce-page .col2-set .col-2 ,
 .woocommerce .checkout #shiptobilling, .woocommerce-page .checkout #shiptobilling , .user-rate, #tie_lang_switcher { float: left }
-body {  font-family:  'Droid Arabic Kufi', serif;  }
-h1, h2, h3, .post-title, .breaking-news span, .share-post span.share-text {  font-family:  'Droid Arabic Kufi', serif; font-weight: bold; }
+body {  font-family:  'GESSTwoLight', serif;  }
+h1, h2, h3, .post-title, .breaking-news span, .share-post span.share-text {  font-family:  'GESSTwoLight', serif; font-weight: bold; }
 .today-date { margin: 4px 5px 0 10px }
 .search-block { margin-right: 0px; margin-left: 0px; margin-top: 4px;}
 .search-block:after { border-right-color: transparent !important }
